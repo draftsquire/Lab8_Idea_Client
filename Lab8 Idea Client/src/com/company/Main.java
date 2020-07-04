@@ -3,7 +3,7 @@ package com.company;
 import java.io.*;
 import java.net.*;
 import java.sql.SQLOutput;
-
+//BLAblabla
 public class Main {/// NAZIWIN
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ClientSession session = new ClientSession();
