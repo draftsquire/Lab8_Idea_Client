@@ -1,0 +1,8 @@
+clear
+execute_script script2.txt
+remove_key Поговорим О Моем Парне
+show
+print_descending
+print_field_descending_oscars_count
+count_less_than_oscars_count 6
+execute_script script4.txt

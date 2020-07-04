@@ -1,0 +1,55 @@
+package com.company;
+
+import java.io.*;
+import java.net.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        //byte[] b = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        Animal cat = new Animal("cat", 10);
+        byte[] b = Converter.convertToBytes(cat);
+        SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
+        DatagramSocket s = new DatagramSocket();
+        DatagramPacket o = new DatagramPacket(b, b.length, a);
+        s.send(o);
+        DatagramPacket i = new DatagramPacket(b, b.length);
+        s.receive(i);
+        /*for (byte j : b){
+            System.out.println(j);
+        }*/
+        Animal secondCat = (Animal) Converter.convertFromBytes(b);
+    }
+}
+class Converter {
+    public static byte[] convertToBytes(Object object) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(baos);
+        objectOutputStream.writeObject(object);
+        return baos.toByteArray();
+
+    }
+
+    public static Object convertFromBytes(byte[] buffer) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+        ObjectInputStream objectInputStream = new ObjectInputStream(bais);
+        Object object = objectInputStream.readObject();
+        return object;
+
+    }
+}
+class Animal{
+    String name;
+    int age;
+    public Animal(String name, int age){
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
