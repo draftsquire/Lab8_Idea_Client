@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.sql.SQLOutput;
 //BLAblabla
-public class Main {/// NAZIWIN
+public class Main {/// NAZILOST
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ClientSession session = new ClientSession();
         SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
