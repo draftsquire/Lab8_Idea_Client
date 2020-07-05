@@ -44,6 +44,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("JavaFX application");
+        InputStream iconStream = getClass().getResourceAsStream("GX.jpg");
+        Image image = new Image(iconStream);
+        primaryStage.getIcons().add(image);
         primaryStage.setWidth(500);
         primaryStage.setHeight(400);
         primaryStage.show();
