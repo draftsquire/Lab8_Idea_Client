@@ -5,6 +5,9 @@ import java.net.*;
 import java.sql.SQLOutput;
 import javafx.application.Application;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 
@@ -43,12 +46,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("JavaFX application");
+        primaryStage.setTitle("Client");
         InputStream iconStream = getClass().getResourceAsStream("GX.jpg");
         Image image = new Image(iconStream);
         primaryStage.getIcons().add(image);
         primaryStage.setWidth(500);
         primaryStage.setHeight(400);
         primaryStage.show();
+        Media sound = new Media(new File("Done.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 }
