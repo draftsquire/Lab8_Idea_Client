@@ -3,6 +3,9 @@ package com.company;
 import java.io.*;
 import java.net.*;
 import java.sql.SQLOutput;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
@@ -13,6 +16,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
+        System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
         ClientSession session = new ClientSession();
         Application.launch();
         SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
