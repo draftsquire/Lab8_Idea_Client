@@ -31,14 +31,14 @@ class ClientSession {
         this.authorised = true;
     }
 
-    Query ReadingCommands() {
+    Query ReadingCommands(String commandIncoming) {
         Query query = null;
         try {
-            if (reader.ConsoleInputCheck()) {
-                //InputInvitation
-                System.out.println("Введите вашу команду:");
-            }
-            command = reader.read();
+            //if (reader.ConsoleInputCheck()) {
+            //    //InputInvitation
+             //   System.out.println("Введите вашу команду:");
+           // }
+            command = commandIncoming; //reader.read();
             space = command.indexOf(" ");
             if (space != -1) {
                 argument = command.substring(space + 1);
@@ -89,17 +89,12 @@ class ClientSession {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                return ReadingCommands();
-            } else if (command.equals("auth")) {
-                //Auth
-                System.out.println("Вы хотите авторизоваться или зарегистрироваться?" + "\n" + "(aut/reg)");
-                String type =Validator.chooseAUTHOREG(scanner.nextLine());
-
-                ;
-                if (type.equals("aut")) {
+                return ReadingCommands(command);
+            } else if (command.equals("aut") || command.equals("reg")) {
+                if (command.equals("aut")) {
                    setSessionUser(Validator.AUTHORIZATION());
                 }
-                if (type.equals("reg")) {
+                if (command.equals("reg")) {
                     setSessionUser(Validator.REGISTRATION());
                 }
 
@@ -110,7 +105,7 @@ class ClientSession {
             } else {
                 //UnknownCommand
                 System.out.println("Команда " + command + " не была распознана.");
-                return ReadingCommands();
+                return ReadingCommands(command);
             }
         } catch (NotAuthorizedException e){
             e.printStackTrace();
