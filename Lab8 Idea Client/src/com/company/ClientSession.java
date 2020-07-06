@@ -23,6 +23,7 @@ class ClientSession {
     ClientSession() {
         reader = new InputReader();
         scanner = new Scanner(System.in);
+        //Greetings
         System.out.println("Добрый день и добро пожаловать в менеджер фильмов.");
     }
     void setSessionUser(User sessionUser){
@@ -34,6 +35,7 @@ class ClientSession {
         Query query = null;
         try {
             if (reader.ConsoleInputCheck()) {
+                //InputInvitation
                 System.out.println("Введите вашу команду:");
             }
             command = reader.read();
@@ -44,6 +46,7 @@ class ClientSession {
             }
             if (command.equals("exit")) {
                 query = new Query(command);
+                //Exit
                 System.out.println("До свидания.");
                 //System.exit(0);
             } else if (command.equals("help")){
@@ -88,6 +91,7 @@ class ClientSession {
                 }
                 return ReadingCommands();
             } else if (command.equals("auth")) {
+                //Auth
                 System.out.println("Вы хотите авторизоваться или зарегистрироваться?" + "\n" + "(aut/reg)");
                 String type =Validator.chooseAUTHOREG(scanner.nextLine());
 
@@ -98,11 +102,13 @@ class ClientSession {
                 if (type.equals("reg")) {
                     setSessionUser(Validator.REGISTRATION());
                 }
+
                 System.out.println("Current usersList :"+Validator.GetUsers().toString());
 
                 query = new Query("update_userslist", Validator.GetUsers());
                 //запрос должен содержать обновлённую коллекцию юзеров: query = new Query();
             } else {
+                //UnknownCommand
                 System.out.println("Команда " + command + " не была распознана.");
                 return ReadingCommands();
             }
