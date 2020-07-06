@@ -16,8 +16,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
-        System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
+        //ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
+        //System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
         ClientSession session = new ClientSession();
         Application.launch();
         SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
