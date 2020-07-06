@@ -10,7 +10,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-
+//We're working on different branch now
 public class Main extends Application {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ClientSession session = new ClientSession();
@@ -50,11 +50,12 @@ public class Main extends Application {
         InputStream iconStream = getClass().getResourceAsStream("GX.jpg");
         Image image = new Image(iconStream);
         primaryStage.getIcons().add(image);
-        primaryStage.setWidth(500);
-        primaryStage.setHeight(400);
+        primaryStage.setWidth(600);
+        primaryStage.setHeight(600);
         primaryStage.show();
         Media sound = new Media(new File("Done.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
+
     }
 }
