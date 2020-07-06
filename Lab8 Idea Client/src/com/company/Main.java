@@ -4,7 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.sql.SQLOutput;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -14,7 +19,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ClientSession session = new ClientSession();
-        Application.launch();
         SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
         DatagramSocket s = new DatagramSocket();
         byte[] b = Converter.convertToBytes(new Query("get_names"));
@@ -26,6 +30,7 @@ public class Main extends Application {
         Reply reply = (Reply) Converter.convertFromBytes(recieved);
         Validator.SetNames(reply.getKeys());
         Validator.SetUsers(reply.getUsers());
+        Application.launch();
         while (true) {
             Query query = session.ReadingCommands();
             if (query.getCommand().equals("exit")) {
@@ -46,14 +51,19 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Client");
+        primaryStage.setTitle("Менеджер фильмов");
+        Group group = new Group();       // корневой узел
+        Scene scene = new Scene(group);
         InputStream iconStream = getClass().getResourceAsStream("GX.jpg");
         Image image = new Image(iconStream);
         primaryStage.getIcons().add(image);
-        primaryStage.setWidth(600);
-        primaryStage.setHeight(600);
+        Parent content = FXMLLoader.load(getClass().getResource("AuthBlock.fxml"));
+        BorderPane root = new BorderPane();
+        root.setCenter(content);
+        group.getChildren().add(root);
+        primaryStage.setScene(scene);
         primaryStage.show();
-        Media sound = new Media(new File("Done.mp3").toURI().toString());
+        Media sound = new Media(new File("Work.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
 

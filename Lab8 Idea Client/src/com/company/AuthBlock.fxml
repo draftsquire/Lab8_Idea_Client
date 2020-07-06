@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<SplitPane dividerPositions="0.7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="152.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.AuthBlockController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="300.0">
+         <children>
+            <Text layoutX="9.0" layoutY="29.0" lineSpacing="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="Прежде чем начать работу с приложением, Вам необходимо пройти авторизацию!" textAlignment="CENTER" wrappingWidth="380.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="7.41796875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3.0" prefWidth="398.0">
+         <children>
+            <Button layoutX="62.0" layoutY="5.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="110.0" text="Войти" onAction="#callAuth" />
+            <Button layoutX="194.0" layoutY="5.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="127.0" text="Зарегистрироваться" onAction="#callReg" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>
