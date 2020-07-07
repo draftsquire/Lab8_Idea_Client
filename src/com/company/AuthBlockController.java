@@ -15,14 +15,16 @@ public class AuthBlockController implements Initializable {
     }
     @FXML public void callAuth(){
         System.out.println("Authorization");
-        Main.callReadingCommands("aut");
         dialogStage.close();
+        Main.callReadingCommands("aut");
+
 
     }
     @FXML public void callReg(){
         System.out.println("Registration");
-        Main.callReadingCommands("reg");
         dialogStage.close();
+        Main.callReadingCommands("reg");
+
 
     }
     public void setDialogStage(Stage dialogStage) {

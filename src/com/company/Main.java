@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -36,22 +37,7 @@ public class Main extends Application {
         Validator.SetNames(reply.getKeys());
         Validator.SetUsers(reply.getUsers());
         Application.launch();
-        while (true) {
-            Query query = session.ReadingCommands("");
-            if (query.getCommand().equals("exit")) {
-                System.exit(666);
-            }
-            b = Converter.convertToBytes(query);
-            out = new DatagramPacket(b, b.length, a);
-            s.send(out);
-            recieved = new byte[8192];
-            in = new DatagramPacket(recieved, recieved.length);
-            s.receive(in);
-            reply = (Reply) Converter.convertFromBytes(recieved);
-            Validator.SetNames(reply.getKeys());
-            Validator.SetUsers(reply.getUsers());
-            System.out.println("\n "+ reply.getStringOutput());
-        }
+
     }
 
     @Override
@@ -63,6 +49,7 @@ public class Main extends Application {
         //Image image = new Image(iconStream);
        // primaryStage.getIcons().add(image);
         showAuthWindow();
+
 
 
         //Media sound = new Media(new File("Work.mp3").toURI().toString());
@@ -85,7 +72,28 @@ public class Main extends Application {
         dialogStage.showAndWait();
     }
     public static void callReadingCommands(String commandIncoming){
-        session.ReadingCommands(commandIncoming);
+       try {
+           Query query = session.ReadingCommands(commandIncoming);
+           SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
+           DatagramSocket s = new DatagramSocket();
+           if (query.getCommand().equals("exit")) {
+               System.exit(666);
+           }
+           byte[] b = Converter.convertToBytes(query);
+           DatagramPacket out = new DatagramPacket(b, b.length, a);
+           s.send(out);
+           byte[] recieved = new byte[8192];
+           DatagramPacket in = new DatagramPacket(recieved, recieved.length);
+           s.receive(in);
+           Reply reply = (Reply) Converter.convertFromBytes(recieved);
+           Validator.SetNames(reply.getKeys());
+           Validator.SetUsers(reply.getUsers());
+           System.out.println("\n " + reply.getStringOutput());
+       } catch (IOException e){
+           e.printStackTrace();
+       } catch (ClassNotFoundException j){
+           j.printStackTrace();
+       }
     }
 
 }
