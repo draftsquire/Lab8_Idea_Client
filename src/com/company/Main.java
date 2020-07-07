@@ -57,8 +57,8 @@ public class Main extends Application {
         //mediaPlayer.play();
 
     }
-    public void showAuthWindow() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AuthBlock.fxml"));
+    public static void showAuthWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("AuthBlock.fxml"));
         Parent base = loader.load();
         AuthBlockController enterUserController = loader.getController();
         Stage dialogStage = new Stage();
@@ -67,9 +67,22 @@ public class Main extends Application {
         dialogStage.setMinHeight(250);
         dialogStage.setMaxWidth(350);
         dialogStage.setMaxHeight(250);
-        dialogStage.setTitle("User");
+        dialogStage.setTitle("Authorization");
         enterUserController.setDialogStage(dialogStage);
         dialogStage.showAndWait();
+    }
+    public static void showMainWindow() throws IOException{
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
+        Parent base = loader.load();
+        MainSceneController mainSceneController = loader.getController();
+        Stage mainStage = new Stage();
+        mainStage.setScene(new Scene(base));
+        mainStage.setTitle("ClientApp");
+        InputStream iconStream = Main.class.getResourceAsStream("FX.png");
+        Image image = new Image(iconStream);
+        mainStage.getIcons().add(image);
+        mainStage.showAndWait();
+
     }
     public static void callReadingCommands(String commandIncoming){
        try {

@@ -66,6 +66,14 @@ public class AuthBlockController implements Initializable {
         if (users.containsKey(login)){
             if (users.get(login).equals(SHA256.getHash(password))){
                 Main.callReadingCommands("aut");
+                //dialogStage.close();
+                try {
+                    Main.showMainWindow();
+                } catch (IOException e){
+                    System.out.println("BIG OOF");
+                    e.printStackTrace();
+                }
+
             }
             else {
                 passwordField.setStyle("-fx-text-inner-color: red;");
@@ -107,6 +115,13 @@ public class AuthBlockController implements Initializable {
         }
         if (isEverythingCorrect){
             Main.callReadingCommands("reg");
+            //dialogStage.close();
+            try {
+                Main.showMainWindow();
+            } catch (IOException e){
+                System.out.println("BIG OOF");
+                e.printStackTrace();
+            }
         }
     }
 
