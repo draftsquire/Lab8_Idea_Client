@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
@@ -17,14 +21,14 @@
               <items>
                   <AnchorPane prefHeight="565.0" prefWidth="547.0">
                      <children>
-                        <Canvas height="426.0" layoutX="4.0" layoutY="113.0" width="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                        <Canvas height="426.0" layoutX="4.0" layoutY="113.0" width="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane>
                      <children>
                         <ScrollPane prefHeight="426.0" prefWidth="768.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <TableView prefHeight="415.0" prefWidth="827.0" tableMenuButtonVisible="true" fx:id="table">
+                              <TableView fx:id="table" prefHeight="415.0" prefWidth="827.0" tableMenuButtonVisible="true">
                                 <columns>
                                   <TableColumn prefWidth="75.0" text="ID" />
                                     <TableColumn prefWidth="75.0" text="Column X" />
@@ -48,20 +52,49 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <SplitPane dividerPositions="0.025" orientation="VERTICAL" prefHeight="860.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.04" orientation="VERTICAL" prefHeight="860.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <SplitPane dividerPositions="0.5" prefHeight="18.0" prefWidth="381.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane prefHeight="18.0" prefWidth="381.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <AnchorPane maxHeight="30.0" minHeight="30.0" minWidth="0.0" prefHeight="30.0" prefWidth="400.0">
                                  <children>
-                                    <ChoiceBox layoutX="10.0" layoutY="-4.0" prefHeight="16.0" prefWidth="187.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                 <children>
-                                    <ChoiceBox prefHeight="16.0" prefWidth="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <MenuBar layoutX="120.0" layoutY="-4.0" maxHeight="32.0" maxWidth="378.0" minHeight="30.0" prefHeight="32.0" prefWidth="378.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <menus>
+                                          <Menu mnemonicParsing="false" text="Choose Command">
+                                              <items>
+                                                  <MenuItem mnemonicParsing="false" onAction="#callAuth" text="auth" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callInfo" text="info" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callShow" text="show" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callInsert" text="insert" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callRemoveKey" text="remove_key" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callClear" text="clear" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callExecuteScript" text="execute_script" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callRemoveGreater" text="remove_greater" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callReplaceIfLower" text="replace_if_lower" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callRemoveGreaterKey" text="remove_greater_key" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callCountLessThanOscarsCount" text="count_less_than_oscars_count" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callPrintDescending" text="print_descending" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callPrintFieldDescendingOscarsCount" text="print_field_descending_oscars_count" />
+                                                <SeparatorMenuItem mnemonicParsing="false" />
+                                                  <MenuItem mnemonicParsing="false" onAction="#callExit" text="exit" />
+
+
+                                              </items>
+                                          </Menu>
+                                          <Menu mnemonicParsing="false" text="Set Language">
+
+                                                <items>
+                                                    <MenuItem mnemonicParsing="false" text="русский" />
+                                                    <MenuItem mnemonicParsing="false" text="турецкий" />
+                                                    <MenuItem mnemonicParsing="false" text="французский" />
+                                                    <MenuItem mnemonicParsing="false" text="испанский (сальвадор)" />
+                                                </items>
+
+                                          </Menu>
+                                       </menus>
+                                    </MenuBar>
                                  </children>
                               </AnchorPane>
                           </items>
@@ -70,7 +103,7 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <ScrollPane layoutY="-2.0" prefHeight="862.0" prefWidth="383.0">
+                        <ScrollPane layoutX="1.0" prefHeight="860.0" prefWidth="382.0">
                            <content>
                               <TextArea prefHeight="860.0" prefWidth="383.0" />
                            </content>
