@@ -1,4 +1,0 @@
-auth
-aut
-admin
-itmosila
