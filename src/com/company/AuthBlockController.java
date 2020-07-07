@@ -3,6 +3,10 @@ package com.company;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -13,6 +17,17 @@ public class AuthBlockController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
+    @FXML
+    private Button submitButton;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private TextField loginField;
+
+    @FXML
+    private Label labelLogin, labelPassword;
     @FXML public void callAuth(){
         System.out.println("Authorization");
         dialogStage.close();
@@ -25,9 +40,13 @@ public class AuthBlockController implements Initializable {
         dialogStage.close();
         Main.callReadingCommands("reg");
     }
-    @FXML public void submit(){
+    @FXML public void submitAut(){
 
     }
+    @FXML public void submitReg(){
+
+    }
+
 
 
     public void setDialogStage(Stage dialogStage) {
