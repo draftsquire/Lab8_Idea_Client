@@ -1,12 +1,13 @@
 package com.company;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
-public class MainSceneController extends Application {
+import javax.swing.text.TableView;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+public class MainSceneController {
 
-    }
+    @FXML
+    TableView tableView;
 }
