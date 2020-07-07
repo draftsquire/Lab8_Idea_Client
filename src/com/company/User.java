@@ -50,4 +50,34 @@ public class User implements Serializable {
         }
         return password;
     }
+
+
+
+
+    public static boolean checkLoginGUI(String username){
+
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        boolean usernameCheck = p.matcher(username).find();
+        //Scanner scanner = new Scanner(System.in);
+        if (username.length()<2 || username.length()>10 || usernameCheck==true){
+            System.out.println("Имя пользователя должно быть больше 2 и меньше 10 символов в длину"+"\n"
+                    +"и не содержать никаких символов кроме букв латинского алфавита и цифр!"+"\n"
+                    +"Повторите ввод имени пользователя: ");
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean checkPasswordGUI(String password){
+
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        boolean passwordCheck = p.matcher(password).find();
+        while (password.length()<5 || password.length()>10 || passwordCheck==true){
+            System.out.println("Пароль быть больше 5 и меньше 10 символов в длину"+"\n"
+                    +"и не содержать никаких символов кроме букв латинского алфавита и цифр!"+"\n"
+                    +"Повторите ввод пароля: ");
+            return false;
+        }
+        return true;
+    }
 }

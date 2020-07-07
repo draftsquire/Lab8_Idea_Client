@@ -1,11 +1,17 @@
 package com.company;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import org.w3c.dom.ls.LSOutput;
 
 import javax.crypto.spec.PSource;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.*;
 
-class Validator {
+class Validator implements ActionListener {
     static private Scanner scanner = new Scanner(System.in);
     static HashSet<String> names = new HashSet<>();
     static HashMap<String,String > users = new HashMap<String,String >();
@@ -67,7 +73,7 @@ class Validator {
 
     //Авторизация
     static User AUTHORIZATION(){
-        System.out.println("Авторизация");
+        /*System.out.println("Авторизация");
         System.out.println("Введите имя пользователя.");
 
         //login
@@ -82,8 +88,8 @@ class Validator {
         do {
             authorizedPassword = scanner.nextLine();
             if(!users.get(authorizedUsername).equals(SHA256.getHash(authorizedPassword)) ) {System.out.println("Неверный пароль! Повторите ввод:");}
-        }while (!users.get(authorizedUsername).equals(SHA256.getHash(authorizedPassword)));
-        User authorizedUser = new User(authorizedUsername,authorizedPassword, false);
+        }while (!users.get(authorizedUsername).equals(SHA256.getHash(authorizedPassword)));*/
+        User authorizedUser = new User(AuthBlockController.getLogin(),AuthBlockController.getPassword(), false);
         System.out.println("Вы успешно авторизовались как "+ authorizedUser.username);
         return authorizedUser;
 }
@@ -91,24 +97,24 @@ class Validator {
 
     //Регистрация
     static User REGISTRATION(){
-        System.out.println("Регистрация");
+        /*System.out.println("Регистрация");
         System.out.println("Введите имя пользователя."+"\n"
                 +"Имя пользователя должно состоять из 3-10 латинских букв и цифр от 0 до 9."+"\n"
                 +"Имя пользователя не должно содержать специальных символов.");
-
 
         //login
         String newUsername = null;
         do {
             newUsername = User.checkUsername(scanner.nextLine());
-            if(users.containsKey(newUsername)) {System.out.println("Пользователь с таким именем уже есть в базе!");}
+            if(users.containsKey(newUsername)) {
+                System.out.println("Пользователь с таким именем уже есть в базе!");}
         }while (users.containsKey(newUsername));
         //password
         System.out.println("Введите пароль."+"\n"
                 +"Пароль должен состоять из 5-10 латинских букв и цифр от 0 до 9."+"\n"
                 +"Пароль не должен содержать специальных символов.");
-        String newPassword = User.checkPassword(scanner.nextLine());
-        User createdUser = new User(newUsername,newPassword,false);
+        String newPassword = User.checkPassword(scanner.nextLine());*/
+        User createdUser = new User(AuthBlockController.getLogin(), AuthBlockController.getPassword(),false);
         users.put(createdUser.username, createdUser.password);
         System.out.println("Вы успешно зарегистрировались как "+ createdUser.username);
         return createdUser;
@@ -129,6 +135,11 @@ class Validator {
                 return StringArg(scanner.nextLine(), toValidate);
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
 
