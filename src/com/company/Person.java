@@ -21,6 +21,15 @@ public class Person implements Serializable {
             this.hairColor = Color.valueOf(person_divided[3]);
         }
     }
+    public Person(String name, String passportID, Color eyeColor, Color hairColor){
+
+        this.name=name;
+        this.passportID=passportID;
+        this.eyeColor=eyeColor;
+        if (hairColor!=null){
+            this.hairColor = hairColor;
+        }
+    }
     public String stringToBeWritten(){
         return  this.name+";"+
                 this.passportID+";"+
@@ -36,12 +45,7 @@ public class Person implements Serializable {
                 "Цвет глаз сценариста: "+this.eyeColor+"\n"+
                 "Цвет волос сценариста: "+this.hairColor;
     }
-    Person(String name, String passportID, Color eyeColor, Color hairColor){
-        this.name = name;
-        this.passportID = passportID;
-        this.eyeColor= eyeColor;
-        this.hairColor = hairColor;
-    }
+
 }
 
 

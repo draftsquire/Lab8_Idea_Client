@@ -17,6 +17,7 @@ class Validator implements ActionListener {
     static HashMap<String,String > users = new HashMap<String,String >();
     static boolean isAboutToSetAMovie = false;
     static String LastName;
+    static Movie currentMovie;
     static int IntArg(String intArg){
         try{
             return Integer.parseInt(intArg);
@@ -39,6 +40,7 @@ class Validator implements ActionListener {
         names.clear();
         names.addAll(_names);
     }
+
     static void SetUsers (HashMap<String,String > usersList){
         if (usersList != null) {
             for (Map.Entry<String, String> user : usersList.entrySet()
@@ -135,6 +137,79 @@ class Validator implements ActionListener {
                 return StringArg(scanner.nextLine(), toValidate);
             }
         }
+    }
+
+
+    //For FXML
+    static boolean checkName(String name){
+        try{
+            if (names.contains(name)){return false;}
+            else {return true;}
+        }catch (Exception e){
+            return false;
+        }
+            }
+    static boolean checkCoordinateX(String coordinateX){
+        try{
+            Integer coordinate = Integer.parseInt(coordinateX);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    static boolean checkCoordinateY(String coordinateY){
+        try{
+            Double coordinate = Double.parseDouble(coordinateY);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    static boolean checkOscarsCount(String oscarsCount){
+        try{
+            Long count = Long.parseLong(oscarsCount);
+            if (count>0) {
+                return true;
+            }else {return false;}
+        }catch (Exception e){
+            return false;
+        }
+    }
+    static boolean checkGoldenPalmCount(String goldenPalmCount){
+        try{
+            Integer count = Integer.parseInt(goldenPalmCount);
+            if (count>0) {
+                System.out.println("right");
+                return true;
+            }else {
+                System.out.println("wrong");
+                return false;}
+        }catch (Exception e){
+            return false;
+        }
+    }
+    static boolean checkScreenwriterName(String name){
+        try{
+            String screenwriterName = name;
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    static boolean checkScreenwriterId(String passportID){
+        try{
+            if(passportID.length() >= 9 && passportID.length() <= 26){
+                return true;
+
+            }else {return false;}
+
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    static void setCurrentMovie(Movie movie){
+        currentMovie = movie;
     }
 
     @Override

@@ -22,10 +22,6 @@ public class MainSceneController implements Initializable {
     ChoiceBox languageChoice;
 
     @FXML
-    public void executeCommand(){
-
-    }
-    @FXML
     public void changeLanguage(){
 
     }

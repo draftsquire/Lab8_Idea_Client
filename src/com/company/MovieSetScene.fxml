@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MovieSetSceneController">
+   <children>
+      <TextField fx:id="nameField" layoutX="219.0" layoutY="34.0" />
+      <TextField fx:id="coordinateXField" layoutX="219.0" layoutY="73.0" />
+      <TextField fx:id="coordinateYField" layoutX="219.0" layoutY="120.0" />
+      <TextField fx:id="oscarsCountField" layoutX="219.0" layoutY="164.0" />
+      <TextField fx:id="goldenPalmCountField" layoutX="219.0" layoutY="204.0" />
+      <TextField fx:id="screenwriterNameField" layoutX="219.0" layoutY="333.0" />
+      <TextField fx:id="screenwriterIDField" layoutX="219.0" layoutY="377.0" />
+      <Button fx:id="submitButton" layoutX="164.0" layoutY="520.0" mnemonicParsing="false" text="Отправить" onAction="#submitMovie" />
+      <Label fx:id="nameLabel" layoutX="30.0" layoutY="40.0" text="Имя" />
+      <Label fx:id="coordinateXLabel" layoutX="30.0" layoutY="84.0" text="Координата x" />
+      <Label fx:id="coordinateYLabel" layoutX="30.0" layoutY="131.0" text="Координата y" />
+      <Label fx:id="oscarsCountLabel" layoutX="30.0" layoutY="169.0" text="Оскары" />
+      <Label fx:id="goldenPalmCountLabel" layoutX="30.0" layoutY="209.0" text="Золотые Пальмовые ветви" />
+      <Label fx:id="genreLabel" layoutX="30.0" layoutY="297.0" text="Жанр" />
+      <Label fx:id="raitingLabel" layoutX="29.0" layoutY="254.0" text="Рейтинг" />
+      <Label fx:id="screenwriterNameLabel" layoutX="27.0" layoutY="338.0" text="Имя сценариста" />
+      <Label fx:id="screenwriterIDLabel" layoutX="29.0" layoutY="382.0" text="ID сценариста" />
+      <ChoiceBox fx:id="ratingChoiceBox" layoutX="219.0" layoutY="249.0" prefHeight="31.0" prefWidth="187.0" />
+      <ChoiceBox fx:id="genreChoiceBox" layoutX="219.0" layoutY="292.0" prefHeight="31.0" prefWidth="187.0" />
+      <Label fx:id="eyeColorLabel" layoutX="26.0" layoutY="424.0" text="Цвет глаз сценариста" />
+      <Label fx:id="hairColorLabel" layoutX="26.0" layoutY="463.0" text="Цвет волос сценариста" />
+      <ChoiceBox fx:id="eyeColorChoiceBox" layoutX="219.0" layoutY="419.0" prefHeight="31.0" prefWidth="187.0" />
+      <ChoiceBox fx:id="hairColorChoiceBox" layoutX="219.0" layoutY="458.0" prefHeight="31.0" prefWidth="187.0" />
+      <Label fx:id="creationInvitationLabel" layoutX="120.0" layoutY="4.0" text="Введите данные о фильме" />
+   </children>
+</AnchorPane>

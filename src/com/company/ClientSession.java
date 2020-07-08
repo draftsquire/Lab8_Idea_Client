@@ -1,6 +1,6 @@
 package com.company;
 
-import java.io.FileNotFoundException;
+/*import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -79,9 +79,9 @@ class ClientSession {
                 if (!authorised) {throw new NotAuthorizedException();}
                 query = new Query(command, Validator.IntArg(argument), new MovieMaker().MovieFactory(reader),sessionUser);
             }
-        /* if (command.equals("remove_greater")){
-            query = new Query(command, Validator.StringArg(argument), new MovieMaker().MovieFactory(reader));
-        }*/
+        //if (command.equals("remove_greater")){
+          //  query = new Query(command, Validator.StringArg(argument), new MovieMaker().MovieFactory(reader));
+      //  }
             else if (command.equals("execute_script")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
@@ -113,4 +113,4 @@ class ClientSession {
         }
         return query;
     }
-}
+}*/

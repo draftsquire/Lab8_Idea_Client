@@ -29,6 +29,11 @@ public class AuthBlockController implements Initializable {
     private Button submitButton;
 
     @FXML
+    private Button submitReg;
+    @FXML
+    private Button submitAuth;
+
+    @FXML
     private PasswordField passwordField;
 
     @FXML
@@ -43,8 +48,9 @@ public class AuthBlockController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AutField.fxml"));
             Parent base = loader.load();
-            dialogStage.setScene(new Scene(base));
-            dialogStage.show();
+            Stage authStage = new Stage();
+            authStage.setScene(new Scene(base));
+            authStage.show();
         }catch (IOException e){     }
 
     }
@@ -55,8 +61,9 @@ public class AuthBlockController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("RegField.fxml"));
             Parent base = loader.load();
-            dialogStage.setScene(new Scene(base));
-            dialogStage.show();
+            Stage regStage = new Stage();
+            regStage.setScene(new Scene(base));
+            regStage.show();
         }catch (IOException e){     }
     }
     @FXML public void submitAut(){
@@ -68,6 +75,8 @@ public class AuthBlockController implements Initializable {
                 Main.callReadingCommands("aut");
                 //dialogStage.close();
                 try {
+                    Stage stage = (Stage) submitAuth.getScene().getWindow();
+                    stage.close();
                     Main.showMainWindow();
                 } catch (IOException e){
                     System.out.println("BIG OOF");
@@ -114,6 +123,8 @@ public class AuthBlockController implements Initializable {
             isEverythingCorrect = false;
         }
         if (isEverythingCorrect){
+            Stage stage = (Stage) submitReg.getScene().getWindow();
+            stage.close();
             Main.callReadingCommands("reg");
             //dialogStage.close();
             try {

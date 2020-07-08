@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private Stage primaryStage;
-    static ClientSession session = new ClientSession();
+    static UpdatedClientSession session = new UpdatedClientSession();
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         //ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
         //System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
@@ -108,5 +108,16 @@ public class Main extends Application {
            j.printStackTrace();
        }
     }
+
+    public static void showMovieSetWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("MovieSetScene.fxml"));
+        Parent base = loader.load();
+        MovieSetSceneController movieSetSceneController = loader.getController();
+        Stage dialogStage = new Stage();
+        dialogStage.setScene(new Scene(base));
+        dialogStage.setTitle("MovieCreation");
+        dialogStage.showAndWait();
+    }
+
 
 }
