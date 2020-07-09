@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Stage primaryStage;
     static UpdatedClientSession session = new UpdatedClientSession();
+    static Reply currentReply;
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         //ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
         //System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
@@ -105,7 +106,8 @@ public class Main extends Application {
            Reply reply = (Reply) Converter.convertFromBytes(recieved);
            Validator.SetNames(reply.getKeys());
            Validator.SetUsers(reply.getUsers());
-           System.out.println("Reply:\n " + reply.getStringOutput());
+           //System.out.println("Reply:\n " + reply.getStringOutput());
+           currentReply= reply;
        } catch (IOException e){
            e.printStackTrace();
        } catch (ClassNotFoundException j){
@@ -140,6 +142,9 @@ public class Main extends Application {
         dialogStage.setTitle("MovieCreation");
         dialogStage.showAndWait();
 
+    }
+    public static Reply  getCurrentReply(){
+        return currentReply;
     }
 
     }
