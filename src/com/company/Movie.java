@@ -22,6 +22,12 @@ public class Movie implements Comparable<Movie>, Serializable {
     private MovieGenre genre; //Поле может быть null
     private MpaaRating mpaaRating; //Поле не может быть null
     private Person screenwriter;
+    private String owner;
+
+    public String getOwner() {
+        return owner;
+    }
+
     /** Конструктор для случая, когда id должен генерироваться автоматически
      * @param name
      * @param coordinates
@@ -31,7 +37,7 @@ public class Movie implements Comparable<Movie>, Serializable {
      * @param mpaaRating
      * @param screenwriter
      */
-    public Movie(String name, Coordinates coordinates , Long oscarsCount, Integer goldenPalmCount, MovieGenre genre, MpaaRating mpaaRating, Person screenwriter ){
+    public Movie(String name, Coordinates coordinates , Long oscarsCount, Integer goldenPalmCount, MovieGenre genre, MpaaRating mpaaRating, Person screenwriter){
         this.id = (int) (Math.random() * 100000);
         this.name = name;
         this.coordinates=coordinates;
@@ -53,7 +59,7 @@ public class Movie implements Comparable<Movie>, Serializable {
      * @param mpaaRating
      * @param screenwriter
      */
-    public Movie(int id, String name, Coordinates coordinates , Long oscarsCount, Integer goldenPalmCount, MovieGenre genre, MpaaRating mpaaRating, Person screenwriter ){
+    public Movie(int id, String name, Coordinates coordinates , Long oscarsCount, Integer goldenPalmCount, MovieGenre genre, MpaaRating mpaaRating, Person screenwriter, String owner  ){
 
         this.id = id;
         this.name = name;
@@ -66,6 +72,7 @@ public class Movie implements Comparable<Movie>, Serializable {
         }
         this.mpaaRating=mpaaRating;
         this.screenwriter=screenwriter;
+        this.owner = owner;
     }
 
     /**Геттер для поля name
@@ -154,6 +161,26 @@ public class Movie implements Comparable<Movie>, Serializable {
         }
 
         return 666;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public ZonedDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public MovieGenre getGenre() {
+        return genre;
+    }
+
+    public MpaaRating getMpaaRating() {
+        return mpaaRating;
+    }
+
+    public Person getScreenwriter() {
+        return screenwriter;
     }
 }
 

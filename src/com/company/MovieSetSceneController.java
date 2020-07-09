@@ -145,7 +145,7 @@ public class MovieSetSceneController implements Initializable {
         }
         if (validated){
             try {
-                Person screenwriter = new Person(name, screenwriterID, screenwriterEyeColor, screenwriterHairColor );
+                Person screenwriter = new Person(screenwriterName, screenwriterID, screenwriterEyeColor, screenwriterHairColor );
                Movie newMovie = new Movie(name,new Coordinates(coordinateX+"; "+ coordinateY), Long.parseLong(oscarsCount), Integer.parseInt(goldenPalmCount),movieGenre, mpaaRating,screenwriter);
                Validator.setCurrentMovie(newMovie);
                 Stage stage = (Stage) window.getScene().getWindow();

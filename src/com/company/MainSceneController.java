@@ -7,15 +7,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 
 import javax.swing.text.TableView;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class MainSceneController implements Initializable {
-    @FXML
-    TableView tableView;
+public class MainSceneController {
     @FXML
     ChoiceBox commandsChoice;
     @FXML
@@ -23,10 +27,6 @@ public class MainSceneController implements Initializable {
 
     @FXML
     public void changeLanguage(){
-
-    }
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
 
     }
 
@@ -113,5 +113,121 @@ public class MainSceneController implements Initializable {
         System.out.println("Command called: "+ "print_descending");
         Main.callReadingCommands("print_descending");
         System.out.println("\n"+Main.getCurrentReply().getStringOutput());
+    }
+
+
+    //========================================================================TableView===================================================
+
+
+
+    @FXML
+    javafx.scene.control.TableView<MovieProperties> table;
+    private final static ObservableList<MovieProperties> movieList = FXCollections.observableArrayList();
+
+    @FXML
+    TableColumn<MovieProperties, Number> id;
+
+    @FXML
+    TableColumn<MovieProperties, String> movieName;
+
+    @FXML
+    TableColumn coordinates;
+
+    @FXML
+    TableColumn<MovieProperties, Number> xCoordinate;
+
+    @FXML
+    TableColumn<MovieProperties, Number> yCoordinate;
+
+    @FXML
+    TableColumn<MovieProperties, String> creationDate;
+
+    @FXML
+    TableColumn<MovieProperties, Number> oscarsCount;
+
+    @FXML
+    TableColumn<MovieProperties, Number> goldenPalmCount;
+
+    @FXML
+    TableColumn<MovieProperties, MovieGenre> genre;
+
+    @FXML
+    TableColumn<MovieProperties, MpaaRating> mpaaRating;
+
+    @FXML
+    TableColumn screenwriter;
+
+    @FXML
+    TableColumn<MovieProperties, String> screenwriterName;
+
+    @FXML
+    TableColumn<MovieProperties, String> passportID;
+
+    @FXML
+    TableColumn<MovieProperties, Color> eyeColor;
+
+    @FXML
+    TableColumn<MovieProperties, Color> hairColor;
+
+    @FXML
+    TableColumn<MovieProperties, String> owner;
+
+    public void initialize(){
+        table.setItems(movieList);
+        id.setCellValueFactory(cellData -> cellData.getValue().getID());
+        movieName.setCellValueFactory(cellData -> cellData.getValue().getName());
+        xCoordinate.setCellValueFactory(cellData -> cellData.getValue().getCoordinates().get_x());
+        yCoordinate.setCellValueFactory(cellData -> cellData.getValue().getCoordinates().get_y());
+        oscarsCount.setCellValueFactory(cellData -> cellData.getValue().getOscarsCount());
+        goldenPalmCount.setCellValueFactory(cellData -> cellData.getValue().getGoldenPalmCount());
+        genre.setCellValueFactory(cellData -> cellData.getValue().getGenre());
+        mpaaRating.setCellValueFactory(cellData -> cellData.getValue().getMpaaRating());
+        screenwriterName.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().nameProperty());
+        passportID.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().passportIDProperty());
+        eyeColor.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().eyeColorProperty());
+        hairColor.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().hairColorProperty());
+        owner.setCellValueFactory(cellData -> cellData.getValue().ownerProperty());
+
+
+        TableViewL10N(new Locale("ru", "RU"));
+    }
+
+    public void TableViewL10N(Locale loc){
+        ResourceBundle movieBundle = ResourceBundle.getBundle("MovieBundle", loc);
+        id.setText(FormattedString(movieBundle.getString("id")));
+        movieName.setText(FormattedString(movieBundle.getString("Name")));
+        coordinates.setText(FormattedString(movieBundle.getString("Coordinates")));
+        creationDate.setText(FormattedString(movieBundle.getString("CreationDate")));
+        oscarsCount.setText(FormattedString(movieBundle.getString("OscarsCount")));
+        goldenPalmCount.setText(FormattedString(movieBundle.getString("GoldenPalmCount")));
+        genre.setText(FormattedString(movieBundle.getString("Genre")));
+        mpaaRating.setText(FormattedString(movieBundle.getString("MPAARating")));
+        screenwriter.setText(FormattedString(movieBundle.getString("Screenwriter")));
+
+        ResourceBundle personBundle = ResourceBundle.getBundle("PersonBundle", loc);
+        screenwriterName.setText(FormattedString(personBundle.getString("personName")));
+        passportID.setText(FormattedString(personBundle.getString("passportID")));
+        eyeColor.setText(FormattedString(personBundle.getString("eyeColor")));
+        hairColor.setText(FormattedString(personBundle.getString("hairColor")));
+
+        DateTimeFormatter pattern = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL).withLocale(loc);
+        creationDate.setCellValueFactory(cellData -> cellData.getValue().getCreationDateFormated(pattern));
+    }
+
+    String FormattedString(String str){
+        try {
+            return new String(str.getBytes("ISO-8859-1"), "UTF-8");
+        }
+        catch (UnsupportedEncodingException e){
+            return "hemlo";
+        }
+    }
+
+    public static void setMovieList(LinkedHashMap<String, Movie> movieMap){
+        movieList.clear();
+        for (Movie movie : movieMap.values()){
+            movieList.add(new MovieProperties(movie));
+        }
+        System.out.println(movieList);
     }
 }

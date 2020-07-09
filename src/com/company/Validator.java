@@ -13,7 +13,7 @@ import java.util.*;
 
 class Validator implements ActionListener {
     static private Scanner scanner = new Scanner(System.in);
-    static HashSet<String> names = new HashSet<>();
+    //static HashSet<String> names = new HashSet<>();
     static HashMap<String,String > users = new HashMap<String,String >();
     static boolean isAboutToSetAMovie = false;
     static String LastName;
@@ -37,10 +37,10 @@ class Validator implements ActionListener {
             return LongArg(scanner.nextLine());
         }
     }
-    static void SetNames (HashSet<String> _names){
+    /*static void SetNames (){
         names.clear();
-        names.addAll(_names);
-    }
+        names.addAll(Main.movieList.keySet());
+    }*/
 
     static void SetUsers (HashMap<String,String > usersList){
         if (usersList != null) {
@@ -130,7 +130,7 @@ class Validator implements ActionListener {
             return stringArg;
         }
         else{
-            if(!names.contains(stringArg)){
+            if(!Main.movieList.keySet().contains(stringArg)){
                 return stringArg;
             }
             else {
@@ -144,7 +144,7 @@ class Validator implements ActionListener {
     //For FXML
     static boolean checkName(String name){
         try{
-            if (names.contains(name)){return false;}
+            if (Main.movieList.keySet().contains(name)){return false;}
             else {return true;}
         }catch (Exception e){
             return false;

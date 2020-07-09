@@ -20,6 +20,27 @@ public enum Color implements Serializable { //enum №3
         return colorName;
     }
 
+    public static Color getColor(String color){
+        switch (color){
+            case "Зелёный":
+                return Color.GREEN;
+            case "Чёрный":
+                return  Color.BLACK;
+            case "Голубой":
+                return Color.BLUE;
+            case "Жёлтый":
+                return Color.YELLOW;
+            case "Оранжевый":
+                return Color.ORANGE;
+            case "Белый":
+                return Color.WHITE;
+            case "Коричневый":
+                return Color.BROWN;
+            default:
+                return Color.GREEN;
+        }
+    }
+
     private static final long serialVersionUID = 7L;
 }
 

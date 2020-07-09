@@ -2,6 +2,7 @@ package com.company;
 
 import java.io.*;
 import java.net.*;
+import java.util.LinkedHashMap;
 
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
@@ -22,6 +23,7 @@ public class Main extends Application {
     private Stage primaryStage;
     static UpdatedClientSession session = new UpdatedClientSession();
     static Reply currentReply;
+    static LinkedHashMap<String, Movie> movieList;
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         //ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
         //System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
@@ -35,7 +37,7 @@ public class Main extends Application {
         DatagramPacket in = new DatagramPacket(recieved, recieved.length);
         s.receive(in);
         Reply reply = (Reply) Converter.convertFromBytes(recieved);
-        Validator.SetNames(reply.getKeys());
+        //Validator.SetNames(reply.getKeys());
         Validator.SetUsers(reply.getUsers());
 
         Application.launch();
@@ -83,9 +85,9 @@ public class Main extends Application {
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(base));
         mainStage.setTitle("ClientApp");
-        InputStream iconStream = Main.class.getResourceAsStream("FX.png");
-        Image image = new Image(iconStream);
-        mainStage.getIcons().add(image);
+        //InputStream iconStream = Main.class.getResourceAsStream("FX.png");
+        //Image image = new Image(iconStream);
+        //mainStage.getIcons().add(image);
         mainStage.showAndWait();
 
     }
@@ -104,10 +106,12 @@ public class Main extends Application {
            DatagramPacket in = new DatagramPacket(recieved, recieved.length);
            s.receive(in);
            Reply reply = (Reply) Converter.convertFromBytes(recieved);
-           Validator.SetNames(reply.getKeys());
+           //Validator.SetNames(reply.getKeys());
            Validator.SetUsers(reply.getUsers());
            //System.out.println("Reply:\n " + reply.getStringOutput());
            currentReply= reply;
+           movieList = reply.getMovies();
+           MainSceneController.setMovieList(movieList);
        } catch (IOException e){
            e.printStackTrace();
        } catch (ClassNotFoundException j){
@@ -136,10 +140,10 @@ public class Main extends Application {
     public static void showNumberSetWindow() throws IOException{
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("NumberSetScene.fxml"));
         Parent base = loader.load();
-        KeySetSceneController keySetSceneController = loader.getController();
+        NumberSetSceneController numberSetSceneController = loader.getController();
         Stage dialogStage = new Stage();
         dialogStage.setScene(new Scene(base));
-        dialogStage.setTitle("MovieCreation");
+        dialogStage.setTitle("NumberSet");
         dialogStage.showAndWait();
 
     }

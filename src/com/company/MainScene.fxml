@@ -28,21 +28,32 @@
                      <children>
                         <ScrollPane prefHeight="426.0" prefWidth="768.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <TableView fx:id="table" prefHeight="415.0" prefWidth="827.0" tableMenuButtonVisible="true">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="ID" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
-                                  <TableColumn prefWidth="75.0" text="Column X" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
-                                    <TableColumn prefWidth="71.0" text="Column X" />
-                                    <TableColumn prefWidth="79.0" text="Column X" />
-                                </columns>
-                              </TableView>
+                               <TableView fx:id="table" prefHeight="426.0" prefWidth="827.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                   <columns>
+                                       <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                                       <TableColumn fx:id="movieName" prefWidth="75.0" text="movieName" />
+                                       <TableColumn fx:id="coordinates" prefWidth="75.0" text="coordinates">
+                                           <columns>
+                                               <TableColumn fx:id="xCoordinate" prefWidth="75.0" text="X" />
+                                               <TableColumn fx:id="yCoordinate" prefWidth="75.0" text="Y" />
+                                           </columns>
+                                       </TableColumn>
+                                       <TableColumn fx:id="creationDate" prefWidth="75.0" text="creationDate" />
+                                       <TableColumn fx:id="oscarsCount" prefWidth="75.0" text="oscarsCount" />
+                                       <TableColumn fx:id="goldenPalmCount" prefWidth="75.0" text="goldenPalmCounter" />
+                                       <TableColumn fx:id="genre" prefWidth="75.0" text="genre" />
+                                       <TableColumn fx:id="mpaaRating" prefWidth="75.0" text="mpaaRating" />
+                                       <TableColumn fx:id="screenwriter" prefWidth="75.0" text="screenwriter">
+                                           <columns>
+                                               <TableColumn fx:id="screenwriterName" prefWidth="75.0" text="screenwriterName" />
+                                               <TableColumn fx:id="passportID" prefWidth="75.0" text="passportID" />
+                                               <TableColumn fx:id="eyeColor" prefWidth="75.0" text="eyeColor" />
+                                               <TableColumn fx:id="hairColor" prefWidth="75.0" text="hairColor" />
+                                           </columns>
+                                       </TableColumn>
+                                       <TableColumn fx:id="owner" prefWidth="75.0" text="owner" />
+                                   </columns>
+                               </TableView>
                            </content>
                         </ScrollPane>
                      </children>
