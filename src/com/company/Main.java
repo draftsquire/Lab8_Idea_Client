@@ -36,6 +36,7 @@ public class Main extends Application {
         Reply reply = (Reply) Converter.convertFromBytes(recieved);
         Validator.SetNames(reply.getKeys());
         Validator.SetUsers(reply.getUsers());
+
         Application.launch();
 
     }
@@ -48,7 +49,10 @@ public class Main extends Application {
        // InputStream iconStream = getClass().getResourceAsStream("GX.jpg");
         //Image image = new Image(iconStream);
        // primaryStage.getIcons().add(image);
+
         showAuthWindow();
+
+
 
 
 
@@ -72,9 +76,9 @@ public class Main extends Application {
         dialogStage.showAndWait();
     }
     public static void showMainWindow() throws IOException{
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
-        Parent base = loader.load();
-        MainSceneController mainSceneController = loader.getController();
+        FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
+        Parent base = mainLoader.load();
+        MainSceneController mainSceneController = mainLoader.getController();
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(base));
         mainStage.setTitle("ClientApp");
@@ -101,7 +105,7 @@ public class Main extends Application {
            Reply reply = (Reply) Converter.convertFromBytes(recieved);
            Validator.SetNames(reply.getKeys());
            Validator.SetUsers(reply.getUsers());
-           System.out.println("\n " + reply.getStringOutput());
+           System.out.println("Reply:\n " + reply.getStringOutput());
        } catch (IOException e){
            e.printStackTrace();
        } catch (ClassNotFoundException j){
@@ -118,6 +122,24 @@ public class Main extends Application {
         dialogStage.setTitle("MovieCreation");
         dialogStage.showAndWait();
     }
+    public static void showKeySetWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("KeySetScene.fxml"));
+        Parent base = loader.load();
+        KeySetSceneController keySetSceneController = loader.getController();
+        Stage dialogStage = new Stage();
+        dialogStage.setScene(new Scene(base));
+        dialogStage.setTitle("MovieCreation");
+        dialogStage.showAndWait();
+    }
+    public static void showNumberSetWindow() throws IOException{
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("NumberSetScene.fxml"));
+        Parent base = loader.load();
+        KeySetSceneController keySetSceneController = loader.getController();
+        Stage dialogStage = new Stage();
+        dialogStage.setScene(new Scene(base));
+        dialogStage.setTitle("MovieCreation");
+        dialogStage.showAndWait();
 
+    }
 
-}
+    }

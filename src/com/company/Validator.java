@@ -18,6 +18,7 @@ class Validator implements ActionListener {
     static boolean isAboutToSetAMovie = false;
     static String LastName;
     static Movie currentMovie;
+    static String currentArgument;
     static int IntArg(String intArg){
         try{
             return Integer.parseInt(intArg);
@@ -211,6 +212,7 @@ class Validator implements ActionListener {
     static void setCurrentMovie(Movie movie){
         currentMovie = movie;
     }
+    static void setCurrentArgument(String argument) {currentArgument=argument;}
 
     @Override
     public void actionPerformed(ActionEvent e) {

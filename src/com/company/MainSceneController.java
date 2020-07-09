@@ -71,10 +71,10 @@ public class MainSceneController implements Initializable {
         Main.callReadingCommands("clear");
     }
 
-    public void callExecuteScript(ActionEvent actionEvent) {
+   /* public void callExecuteScript(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "execute_script");
         Main.callReadingCommands("execute_script");
-    }
+    }*/
 
     public void callRemoveGreater(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "remove_greater");

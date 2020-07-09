@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.NumberSetSceneController">
+   <children>
+      <Label fx:id="enterNumberLabel" layoutX="52.0" layoutY="31.0" text="Введите число" />
+      <TextField fx:id="enterNumberField" layoutX="7.0" layoutY="70.0" />
+      <Button fx:id="submitNumberButton" layoutX="54.0" layoutY="125.0" mnemonicParsing="false" onAction="#submitNumber" text="Отправить" />
+   </children>
+</AnchorPane>

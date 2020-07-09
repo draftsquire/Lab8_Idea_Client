@@ -70,7 +70,6 @@
                                                   <MenuItem mnemonicParsing="false" onAction="#callInsert" text="insert" />
                                                   <MenuItem mnemonicParsing="false" onAction="#callRemoveKey" text="remove_key" />
                                                   <MenuItem mnemonicParsing="false" onAction="#callClear" text="clear" />
-                                                  <MenuItem mnemonicParsing="false" onAction="#callExecuteScript" text="execute_script" />
                                                   <MenuItem mnemonicParsing="false" onAction="#callRemoveGreater" text="remove_greater" />
                                                   <MenuItem mnemonicParsing="false" onAction="#callReplaceIfLower" text="replace_if_lower" />
                                                   <MenuItem mnemonicParsing="false" onAction="#callRemoveGreaterKey" text="remove_greater_key" />

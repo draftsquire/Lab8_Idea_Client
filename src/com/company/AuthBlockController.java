@@ -77,8 +77,8 @@ public class AuthBlockController implements Initializable {
                 try {
                     Stage stage = (Stage) submitAuth.getScene().getWindow();
                     stage.close();
-                    Main.showMainWindow();
-                } catch (IOException e){
+                     Main.showMainWindow();
+                } catch (Exception e){
                     System.out.println("BIG OOF");
                     e.printStackTrace();
                 }
@@ -128,8 +128,8 @@ public class AuthBlockController implements Initializable {
             Main.callReadingCommands("reg");
             //dialogStage.close();
             try {
-                Main.showMainWindow();
-            } catch (IOException e){
+              //  Main.showMainWindow();
+            } catch (Exception e){
                 System.out.println("BIG OOF");
                 e.printStackTrace();
             }

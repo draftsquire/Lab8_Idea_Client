@@ -33,9 +33,7 @@ class UpdatedClientSession {
 
             if (command.equals("exit")) {
                 query = new Query(command);
-                //Exit
                 System.out.println("До свидания.");
-                //System.exit(0);
             } else if (command.equals("help")){
                 query = new Query(command);
             }
@@ -49,49 +47,58 @@ class UpdatedClientSession {
             } else if (command.equals("remove_key") ||
                     command.equals("remove_greater_key")) {
                 if (!authorised) {throw new NotAuthorizedException();}
-                query = new Query(command, argument,sessionUser);
+                try {
+                    Main.showKeySetWindow();
+                    query = new Query(command, Validator.currentArgument, sessionUser);
+                } catch (IOException e){
+                    e.printStackTrace();
+                    query = new Query("get_names");
+                }
             } else if (command.equals("count_less_than_oscars_count")) {
                 if (!authorised) {throw new NotAuthorizedException();}
-                query = new Query(command, Validator.LongArg(argument));
+                try {
+                    Main.showNumberSetWindow();
+                    query = new Query(command,Long.parseLong(Validator.currentArgument));
+                } catch(Exception e){
+                    e.printStackTrace();
+                    query = new Query("get_names");
+                }
             } else if (command.equals("insert") ||
                     command.equals("remove_greater")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
                     Main.showMovieSetWindow();
-
                     query = new Query(command, Validator.currentMovie.getName(),Validator.currentMovie, sessionUser);
                 } catch (IOException e){
                     query = new Query("get_names");
                 }
             } else if (command.equals("replace_if_lower")) {
                 if (!authorised) {throw new NotAuthorizedException();}
-                Validator.isAboutToSetAMovie = true;
-                //query = new Query(command, Validator.StringArg(argument, false), new MovieMaker().MovieFactory(reader),sessionUser);
+                try {
+                    Main.showMovieSetWindow();
+                    query = new Query(command, Validator.currentMovie.getName(),Validator.currentMovie, sessionUser);
+                } catch (IOException e){
+                    query = new Query("get_names");
+                }
             } else if (command.equals("update")) {
                 if (!authorised) {throw new NotAuthorizedException();}
-              //  query = new Query(command, Validator.IntArg(argument), new MovieMaker().MovieFactory(reader),sessionUser);
-            }
-        /* if (command.equals("remove_greater")){
-            query = new Query(command, Validator.StringArg(argument), new MovieMaker().MovieFactory(reader));
-        }*/
-            else if (command.equals("execute_script")) {
-                if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    reader.push(new Scanner(new FileReader(argument)));
-                } catch (FileNotFoundException e) {
+                    Main.showMovieSetWindow();
+                    query = new Query(command, Validator.currentMovie.getName(), Validator.currentMovie,sessionUser);
+                } catch (Exception e){
                     e.printStackTrace();
+                    query = new Query("get_names");
                 }
-                return ReadingCommands(command);
-            } else if (command.equals("aut") || command.equals("reg")) {
+            }
+
+            else if (command.equals("aut") || command.equals("reg")) {
                 if (command.equals("aut")) {
                     setSessionUser(Validator.AUTHORIZATION());
                 }
                 if (command.equals("reg")) {
                     setSessionUser(Validator.REGISTRATION());
                 }
-
                 System.out.println("Current usersList :"+Validator.GetUsers().toString());
-
                 query = new Query("update_userslist", Validator.GetUsers());
                 //запрос должен содержать обновлённую коллекцию юзеров: query = new Query();
             } else {
