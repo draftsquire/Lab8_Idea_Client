@@ -13,6 +13,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import javax.swing.text.TableView;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -29,16 +30,25 @@ public class MainSceneController {
     @FXML
     Label replyLabel;
     @FXML
+    Label userLabel;
+
+
+    @FXML
     public void changeLanguage(){
 
+    }
+    public void updateCurrentWindowUser(){
+        try {
+            userLabel.setText(Main.session.getSessionUser().username);
+        }catch (Exception e){
+
+        }
     }
 
     public void callExit(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "exit");
         Main.callReadingCommands("exit");
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
-
-
 
     }
 
@@ -50,8 +60,12 @@ public class MainSceneController {
 
     public void callAuth(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "auth");
-        Main.callReadingCommands("auth");
-        replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
+        try {
+            Main.showAuthWindow(false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        updateCurrentWindowUser();
     }
 
     public void callInfo(ActionEvent actionEvent) {
@@ -178,6 +192,7 @@ public class MainSceneController {
 
     public void initialize(){
         table.setItems(movieList);
+        replyLabel.setText("");
         id.setCellValueFactory(cellData -> cellData.getValue().getID());
         movieName.setCellValueFactory(cellData -> cellData.getValue().getName());
         xCoordinate.setCellValueFactory(cellData -> cellData.getValue().getCoordinates().get_x());

@@ -24,6 +24,8 @@ public class Main extends Application {
     static UpdatedClientSession session = new UpdatedClientSession();
     static Reply currentReply;
     static LinkedHashMap<String, Movie> movieList;
+    static Parent base;
+    static MainSceneController mainSceneController;
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         //ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
         //System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
@@ -52,8 +54,7 @@ public class Main extends Application {
        // InputStream iconStream = getClass().getResourceAsStream("GX.jpg");
         //Image image = new Image(iconStream);
        // primaryStage.getIcons().add(image);
-
-        showAuthWindow();
+        showAuthWindow(true);
 
 
 
@@ -64,11 +65,12 @@ public class Main extends Application {
         //mediaPlayer.play();
 
     }
-    public static void showAuthWindow() throws IOException {
+    public static void showAuthWindow(boolean isEntering) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("AuthBlock.fxml"));
         Parent base = loader.load();
         AuthBlockController enterUserController = loader.getController();
         Stage dialogStage = new Stage();
+        AuthBlockController.setIsEntering(isEntering);
         dialogStage.setScene(new Scene(base));
         dialogStage.setMinWidth(350);
         dialogStage.setMinHeight(250);
@@ -77,22 +79,25 @@ public class Main extends Application {
         dialogStage.setTitle("Authorization");
         enterUserController.setDialogStage(dialogStage);
         dialogStage.showAndWait();
+
+
     }
     public static void showMainWindow() throws IOException{
-        FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
-        Parent base = mainLoader.load();
-        MainSceneController mainSceneController = mainLoader.getController();
+
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(base));
         mainStage.setTitle("ClientApp");
-        //InputStream iconStream = Main.class.getResourceAsStream("FX.png");
-        //Image image = new Image(iconStream);
-        //mainStage.getIcons().add(image);
         mainStage.showAndWait();
 
     }
+    public static void setupMainWindow() throws IOException {
+        FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
+         base = mainLoader.load();
+         mainSceneController = mainLoader.getController();
+    }
     public static void callReadingCommands(String commandIncoming){
        try {
+
            Query query = session.ReadingCommands(commandIncoming);
            SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
            DatagramSocket s = new DatagramSocket();
@@ -112,6 +117,7 @@ public class Main extends Application {
            currentReply= reply;
            movieList = reply.getMovies();
            MainSceneController.setMovieList(movieList);
+
        } catch (IOException e){
            e.printStackTrace();
        } catch (ClassNotFoundException j){

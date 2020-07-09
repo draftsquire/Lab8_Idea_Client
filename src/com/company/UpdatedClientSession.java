@@ -25,7 +25,9 @@ class UpdatedClientSession {
         this.sessionUser = sessionUser;
         this.authorised = true;
     }
-
+    User getSessionUser(){
+        return this.sessionUser;
+    }
     Query ReadingCommands(String commandIncoming) {
         Query query = null;
         try {
@@ -94,9 +96,11 @@ class UpdatedClientSession {
             else if (command.equals("aut") || command.equals("reg")) {
                 if (command.equals("aut")) {
                     setSessionUser(Validator.AUTHORIZATION());
+
                 }
                 if (command.equals("reg")) {
                     setSessionUser(Validator.REGISTRATION());
+
                 }
                 System.out.println("Current usersList :"+Validator.GetUsers().toString());
                 query = new Query("update_userslist", Validator.GetUsers());

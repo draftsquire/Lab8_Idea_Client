@@ -14,20 +14,20 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.6666" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="862.0" prefWidth="1161.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainSceneController">
+<SplitPane dividerPositions="0.6666" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="862.0" prefWidth="1161.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainSceneController" onMouseMoved="#updateCurrentWindowUser">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" onMouseMoved="#updateCurrentWindowUser">
          <children>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="398.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="398.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMouseMoved="#updateCurrentWindowUser">
               <items>
                   <AnchorPane prefHeight="565.0" prefWidth="547.0">
                      <children>
-                        <Canvas height="426.0" layoutX="4.0" layoutY="113.0" width="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Canvas height="426.0" layoutX="4.0" layoutY="113.0" width="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" onMouseMoved="#updateCurrentWindowUser" />
                      </children>
                   </AnchorPane>
                   <AnchorPane>
                      <children>
-                         <TableView fx:id="table" prefHeight="424.0" prefWidth="767.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                         <TableView fx:id="table" prefHeight="424.0" prefWidth="767.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMouseMoved="#updateCurrentWindowUser">
                              <columns>
                                  <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
                                  <TableColumn fx:id="movieName" prefWidth="75.0" text="movieName" />
@@ -58,19 +58,19 @@
               </items>
             </SplitPane>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" onMouseMoved="#updateCurrentWindowUser">
          <children>
-            <SplitPane dividerPositions="0.04" orientation="VERTICAL" prefHeight="860.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.04" orientation="VERTICAL" prefHeight="860.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMouseMoved="#updateCurrentWindowUser">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <SplitPane prefHeight="18.0" prefWidth="381.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane prefHeight="18.0" prefWidth="381.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMouseMoved="#updateCurrentWindowUser">
                           <items>
                             <AnchorPane maxHeight="30.0" minHeight="30.0" minWidth="0.0" prefHeight="30.0" prefWidth="400.0">
                                  <children>
-                                    <MenuBar layoutX="120.0" layoutY="-4.0" maxHeight="32.0" maxWidth="378.0" minHeight="30.0" prefHeight="32.0" prefWidth="378.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <MenuBar layoutX="120.0" layoutY="-4.0" maxHeight="30.0" maxWidth="274.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="378.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMouseMoved="#updateCurrentWindowUser">
                                        <menus>
-                                          <Menu mnemonicParsing="false" text="Choose Command">
+                                          <Menu mnemonicParsing="false" text="Choose Command" >
                                               <items>
                                                   <MenuItem mnemonicParsing="false" onAction="#callAuth" text="auth" />
                                                   <MenuItem mnemonicParsing="false" onAction="#callInfo" text="info" />
@@ -102,6 +102,7 @@
                                           </Menu>
                                        </menus>
                                     </MenuBar>
+                                    <Label fx:id="userLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="258.0" layoutY="1.0" maxHeight="30.0" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="30.0" prefWidth="120.0" text="User" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMouseMoved="#updateCurrentWindowUser" />
                                  </children>
                               </AnchorPane>
                           </items>

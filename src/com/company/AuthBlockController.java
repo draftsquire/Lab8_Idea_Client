@@ -22,6 +22,7 @@ public class AuthBlockController implements Initializable {
     static String login;
     static String password;
     private Stage dialogStage;
+    static boolean isEntering;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
@@ -41,10 +42,16 @@ public class AuthBlockController implements Initializable {
 
     @FXML
     private Label labelLogin, labelPassword;
+    public static void setIsEntering(boolean bool){
+        isEntering = bool;
+    }
+
     @FXML public void callAuth(){
         System.out.println("Authorization");
         dialogStage.close();
         //Main.callReadingCommands("aut");
+
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AutField.fxml"));
             Parent base = loader.load();
@@ -72,12 +79,16 @@ public class AuthBlockController implements Initializable {
         HashMap<String, String> users = Validator.GetUsers();
         if (users.containsKey(login)){
             if (users.get(login).equals(SHA256.getHash(password))){
-                Main.callReadingCommands("aut");
+
                 //dialogStage.close();
                 try {
+                    Main.setupMainWindow();
+                    Main.callReadingCommands("aut");
                     Stage stage = (Stage) submitAuth.getScene().getWindow();
                     stage.close();
-                     Main.showMainWindow();
+                    if(isEntering) {
+                        Main.showMainWindow();
+                    }
                 } catch (Exception e){
                     System.out.println("BIG OOF");
                     e.printStackTrace();
@@ -123,12 +134,17 @@ public class AuthBlockController implements Initializable {
             isEverythingCorrect = false;
         }
         if (isEverythingCorrect){
-            Stage stage = (Stage) submitReg.getScene().getWindow();
-            stage.close();
-            Main.callReadingCommands("reg");
+
+
             //dialogStage.close();
             try {
-              //  Main.showMainWindow();
+                Main.setupMainWindow();
+                Main.callReadingCommands("reg");
+                Stage stage = (Stage) submitReg.getScene().getWindow();
+                stage.close();
+                if(isEntering) {
+                    Main.showMainWindow();
+                }
             } catch (Exception e){
                 System.out.println("BIG OOF");
                 e.printStackTrace();
