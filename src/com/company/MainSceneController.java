@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class MainSceneController {
+public class MainSceneController implements Initializable {
     @FXML
     ChoiceBox commandsChoice;
     @FXML
@@ -36,6 +36,27 @@ public class MainSceneController {
     @FXML
     public void changeLanguage(){
 
+    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        table.setItems(movieList);
+        replyLabel.setText("");
+        id.setCellValueFactory(cellData -> cellData.getValue().getID());
+        movieName.setCellValueFactory(cellData -> cellData.getValue().getName());
+        xCoordinate.setCellValueFactory(cellData -> cellData.getValue().getCoordinates().get_x());
+        yCoordinate.setCellValueFactory(cellData -> cellData.getValue().getCoordinates().get_y());
+        oscarsCount.setCellValueFactory(cellData -> cellData.getValue().getOscarsCount());
+        goldenPalmCount.setCellValueFactory(cellData -> cellData.getValue().getGoldenPalmCount());
+        genre.setCellValueFactory(cellData -> cellData.getValue().getGenre());
+        mpaaRating.setCellValueFactory(cellData -> cellData.getValue().getMpaaRating());
+        screenwriterName.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().nameProperty());
+        passportID.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().passportIDProperty());
+        eyeColor.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().eyeColorProperty());
+        hairColor.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().hairColorProperty());
+        owner.setCellValueFactory(cellData -> cellData.getValue().ownerProperty());
+
+
+        TableViewL10N(new Locale("ru", "RU"));
     }
     public void updateCurrentWindowUser(){
         try {
@@ -190,26 +211,6 @@ public class MainSceneController {
     @FXML
     TableColumn<MovieProperties, String> owner;
 
-    public void initialize(){
-        table.setItems(movieList);
-        replyLabel.setText("");
-        id.setCellValueFactory(cellData -> cellData.getValue().getID());
-        movieName.setCellValueFactory(cellData -> cellData.getValue().getName());
-        xCoordinate.setCellValueFactory(cellData -> cellData.getValue().getCoordinates().get_x());
-        yCoordinate.setCellValueFactory(cellData -> cellData.getValue().getCoordinates().get_y());
-        oscarsCount.setCellValueFactory(cellData -> cellData.getValue().getOscarsCount());
-        goldenPalmCount.setCellValueFactory(cellData -> cellData.getValue().getGoldenPalmCount());
-        genre.setCellValueFactory(cellData -> cellData.getValue().getGenre());
-        mpaaRating.setCellValueFactory(cellData -> cellData.getValue().getMpaaRating());
-        screenwriterName.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().nameProperty());
-        passportID.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().passportIDProperty());
-        eyeColor.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().eyeColorProperty());
-        hairColor.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().hairColorProperty());
-        owner.setCellValueFactory(cellData -> cellData.getValue().ownerProperty());
-
-
-        TableViewL10N(new Locale("ru", "RU"));
-    }
 
     public void TableViewL10N(Locale loc){
         ResourceBundle movieBundle = ResourceBundle.getBundle("MovieBundle", loc);
@@ -249,4 +250,6 @@ public class MainSceneController {
         }
         System.out.println(movieList);
     }
+
+
 }
