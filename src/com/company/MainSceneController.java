@@ -6,9 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
@@ -24,14 +22,21 @@ import java.util.ResourceBundle;
 
 public class MainSceneController implements Initializable {
     @FXML
-    ChoiceBox commandsChoice;
+    Menu commandsChoice;
     @FXML
-    ChoiceBox languageChoice;
+    Menu languageChoice;
     @FXML
     Label replyLabel;
     @FXML
     Label userLabel;
-
+    @FXML
+    MenuItem Russian;
+    @FXML
+    MenuItem Turkish;
+    @FXML
+    MenuItem French;
+    @FXML
+    MenuItem Spanish;
 
     @FXML
     public void changeLanguage(){
@@ -39,6 +44,13 @@ public class MainSceneController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ResourceBundle currentLanguageBundle = ResourceBundle.getBundle("MainSceneBundle");
+        commandsChoice.setText(FormattedString( currentLanguageBundle.getString("CommandsChoice")));
+        languageChoice.setText(FormattedString( currentLanguageBundle.getString("LanguageChoice")));
+        Russian.setText(FormattedString( currentLanguageBundle.getString("Russian")));
+        Turkish.setText(FormattedString( currentLanguageBundle.getString("Turkish")));
+        French.setText(FormattedString( currentLanguageBundle.getString("French")));
+        Spanish.setText(FormattedString( currentLanguageBundle.getString("Spanish")));
         table.setItems(movieList);
         replyLabel.setText("");
         id.setCellValueFactory(cellData -> cellData.getValue().getID());

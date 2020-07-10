@@ -70,7 +70,7 @@
                                  <children>
                                     <MenuBar layoutX="120.0" layoutY="-4.0" maxHeight="30.0" maxWidth="274.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="378.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMouseMoved="#updateCurrentWindowUser">
                                        <menus>
-                                          <Menu mnemonicParsing="false" text="Choose Command" >
+                                          <Menu fx:id="commandsChoice"  mnemonicParsing="false" text="Choose Command" >
                                               <items>
                                                   <MenuItem mnemonicParsing="false" onAction="#callAuth" text="auth" />
                                                   <MenuItem mnemonicParsing="false" onAction="#callInfo" text="info" />
@@ -90,13 +90,13 @@
 
                                               </items>
                                           </Menu>
-                                          <Menu mnemonicParsing="false" text="Set Language">
+                                          <Menu fx:id="languageChoice" mnemonicParsing="false" text="Set Language">
 
                                                 <items>
-                                                    <MenuItem mnemonicParsing="false" text="русский" />
-                                                    <MenuItem mnemonicParsing="false" text="турецкий" />
-                                                    <MenuItem mnemonicParsing="false" text="французский" />
-                                                    <MenuItem mnemonicParsing="false" text="испанский (сальвадор)" />
+                                                    <MenuItem fx:id="Russian" mnemonicParsing="false" text="Russian" />
+                                                    <MenuItem fx:id="Turkish" mnemonicParsing="false" text="Turkish" />
+                                                    <MenuItem fx:id="French" mnemonicParsing="false" text="French" />
+                                                    <MenuItem fx:id="Spanish" mnemonicParsing="false" text="Spanish (Salvador)" />
                                                 </items>
 
                                           </Menu>

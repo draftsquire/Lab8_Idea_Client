@@ -94,7 +94,6 @@ public class Main extends Application {
     }
     public static void setupMainWindow() throws IOException {
         FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
-
          base = mainLoader.load();
          mainSceneController = mainLoader.getController();
     }
