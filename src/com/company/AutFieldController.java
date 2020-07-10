@@ -44,7 +44,7 @@ public class AutFieldController implements Initializable {
 
                 //dialogStage.close();
                 try {
-                    Main.setupMainWindow();
+                    Main.setupMainWindow(ResourceBundle.getBundle("MainSceneBundle"));
                     Main.callReadingCommands("aut");
                     Stage stage = (Stage) submitAut.getScene().getWindow();
                     stage.close();

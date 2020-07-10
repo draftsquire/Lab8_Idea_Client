@@ -92,8 +92,9 @@ public class Main extends Application {
         mainStage.showAndWait();
 
     }
-    public static void setupMainWindow() throws IOException {
+    public static void setupMainWindow(ResourceBundle resourceBundle) throws IOException {
         FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
+        mainLoader.setResources(resourceBundle);
          base = mainLoader.load();
          mainSceneController = mainLoader.getController();
     }
@@ -127,8 +128,10 @@ public class Main extends Application {
        }
     }
 
-    public static void showMovieSetWindow() throws IOException {
+    public static void showMovieSetWindow(ResourceBundle resourceBundle) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("MovieSetScene.fxml"));
+        loader.setResources(resourceBundle);
+
         Parent base = loader.load();
         MovieSetSceneController movieSetSceneController = loader.getController();
         Stage dialogStage = new Stage();
@@ -136,8 +139,9 @@ public class Main extends Application {
         dialogStage.setTitle("MovieCreation");
         dialogStage.showAndWait();
     }
-    public static void showKeySetWindow() throws IOException {
+    public static void showKeySetWindow(ResourceBundle resourceBundle) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("KeySetScene.fxml"));
+        loader.setResources(resourceBundle);
         Parent base = loader.load();
         KeySetSceneController keySetSceneController = loader.getController();
         Stage dialogStage = new Stage();

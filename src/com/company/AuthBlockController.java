@@ -64,7 +64,7 @@ public class AuthBlockController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AutField.fxml"));
-            loader.setResources(ResourceBundle.getBundle("AuthBlockBundle"));
+            loader.setResources(currentLanguageBundle);
             Parent base = loader.load();
             Stage authStage = new Stage();
             authStage.setScene(new Scene(base));
@@ -81,7 +81,7 @@ public class AuthBlockController implements Initializable {
         //Main.callReadingCommands("reg");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("RegField.fxml"));
-            loader.setResources(ResourceBundle.getBundle("AuthBlockBundle"));
+            loader.setResources(currentLanguageBundle);
             Parent base = loader.load();
             Stage regStage = new Stage();
             regStage.setScene(new Scene(base));

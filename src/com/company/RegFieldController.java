@@ -54,7 +54,7 @@ public class RegFieldController implements Initializable {
 
             //dialogStage.close();
             try {
-                Main.setupMainWindow();
+                Main.setupMainWindow(ResourceBundle.getBundle("MainSceneBundle"));
                 Main.callReadingCommands("reg");
                 Stage stage = (Stage) submitReg.getScene().getWindow();
                 stage.close();

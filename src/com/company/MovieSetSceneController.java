@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -23,7 +24,7 @@ public class MovieSetSceneController implements Initializable {
             MpaaRating.R.toString(),MpaaRating.NC_17.toString());
     ObservableList<String> colorList =  FXCollections.observableArrayList(Color.GREEN.toString(),Color.BLACK.toString(),Color.BLUE.toString(),
             Color.YELLOW.toString(),Color.ORANGE.toString(),Color.WHITE.toString(),Color.BROWN.toString());
-
+    ResourceBundle currentLanguageBundle;
     @FXML
     AnchorPane window;
 
@@ -83,6 +84,20 @@ public class MovieSetSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        currentLanguageBundle=resources;
+        creationInvitationLabel.setText(FormattedString( currentLanguageBundle.getString("creationInvitationLabel")));
+        coordinateXLabel.setText(FormattedString( currentLanguageBundle.getString("coordinateXLabel")));
+        coordinateYLabel.setText(FormattedString( currentLanguageBundle.getString("coordinateYLabel")));
+        oscarsCountLabel.setText(FormattedString( currentLanguageBundle.getString("oscarsCountLabel")));
+        goldenPalmCountLabel.setText(FormattedString( currentLanguageBundle.getString("goldenPalmCountLabel")));;
+        genreLabel.setText(FormattedString( currentLanguageBundle.getString("genreLabel")));;
+        raitingLabel.setText(FormattedString( currentLanguageBundle.getString("raitingLabel")));;
+        genreLabel.setText(FormattedString( currentLanguageBundle.getString("genreLabel")));;
+        screenwriterNameLabel.setText(FormattedString( currentLanguageBundle.getString("screenwriterNameLabel")));;
+        screenwriterIDLabel.setText(FormattedString( currentLanguageBundle.getString("screenwriterIDLabel")));;
+        eyeColorLabel.setText(FormattedString( currentLanguageBundle.getString("eyeColorLabel")));;
+        hairColorLabel.setText(FormattedString( currentLanguageBundle.getString("hairColorLabel")));;
+        submitButton.setText(FormattedString( currentLanguageBundle.getString("submitButton")));;
         ratingChoiceBox.setItems(ratingList);
         ratingChoiceBox.setValue(MpaaRating.G.toString());
         genreChoiceBox.setItems(genreList);
@@ -93,7 +108,14 @@ public class MovieSetSceneController implements Initializable {
         hairColorChoiceBox.setValue(Color.WHITE.toString());
 
     }
-
+    String FormattedString(String str){
+        try {
+            return new String(str.getBytes("ISO-8859-1"), "UTF-8");
+        }
+        catch (UnsupportedEncodingException e){
+            return "hemlo";
+        }
+    }
     @FXML public void submitMovie() {
         boolean validated = true;
         String name = nameField.getText();

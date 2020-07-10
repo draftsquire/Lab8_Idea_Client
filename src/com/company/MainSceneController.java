@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainSceneController implements Initializable {
+    ResourceBundle currentLanguageBundle;
     @FXML
     Menu commandsChoice;
     @FXML
@@ -44,7 +45,7 @@ public class MainSceneController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ResourceBundle currentLanguageBundle = ResourceBundle.getBundle("MainSceneBundle");
+        currentLanguageBundle = resources;
         commandsChoice.setText(FormattedString( currentLanguageBundle.getString("CommandsChoice")));
         languageChoice.setText(FormattedString( currentLanguageBundle.getString("LanguageChoice")));
         Russian.setText(FormattedString( currentLanguageBundle.getString("Russian")));
