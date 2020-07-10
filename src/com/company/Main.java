@@ -92,6 +92,11 @@ public class Main extends Application {
         mainStage.showAndWait();
 
     }
+
+    public static MainSceneController getMainSceneController() {
+        return mainSceneController;
+    }
+
     public static void setupMainWindow(ResourceBundle resourceBundle) throws IOException {
         FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
         mainLoader.setResources(resourceBundle);
@@ -119,7 +124,7 @@ public class Main extends Application {
            //System.out.println("Reply:\n " + reply.getStringOutput());
            currentReply= reply;
            movieList = reply.getMovies();
-           MainSceneController.setMovieList(movieList);
+           getMainSceneController().setMovieList(movieList);
 
        } catch (IOException e){
            e.printStackTrace();

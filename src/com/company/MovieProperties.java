@@ -44,17 +44,17 @@ public class MovieProperties implements Comparable<MovieProperties> {
         this.owner=new SimpleStringProperty(movie.getOwner());
 
         ellipse = new Ellipse(
-                Main.getController().getxCanvasCenter() + coordinates.get_x().get(),
-                Main.getController().getyCanvasCenter() - coordinates.get_y().get(),
+                Main.mainSceneController.getxCanvasCenter() + coordinates.get_x().get(),
+                Main.getMainSceneController().getyCanvasCenter() - coordinates.get_y().get(),
                 oscarsCount.get()*5,
                 goldenPalmCount.get()*5
         );
         ellipse.setFill(getUserColor(owner.get()));
         ellipse.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
-            Main.getController().getTable().getSelectionModel().select(this);
+            Main.getMainSceneController().getTable().getSelectionModel().select(this);
             Animation.startAnimationClicked(ellipse);
         }));
-        Main.getController().DrawMovie(ellipse);
+        Main.getMainSceneController().DrawMovie(ellipse);
 //        double xCenter = Main.getController().canvasPane.getWidth()/2;
 //        double yCenter = Main.getController().canvasPane.getWidth()/2;
 //

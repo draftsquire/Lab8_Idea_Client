@@ -12,6 +12,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.company.Main.getMainSceneController;
+
 public class KeySetSceneController implements Initializable {
     @FXML
     AnchorPane window;
@@ -28,7 +30,7 @@ public class KeySetSceneController implements Initializable {
     public void submitKey(){
             String key = enterKeyField.getText();
             try {
-                Animation.OnRemoveAnimation(Main.getController().getMoviePropertiesMap().get(key).getEllipse());
+                Animation.OnRemoveAnimation(getMainSceneController().getMoviePropertiesMap().get(key).getEllipse());
             }
             catch (NullPointerException e){return;}
             Validator.setCurrentArgument(key);

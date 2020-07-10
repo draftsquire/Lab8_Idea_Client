@@ -6,21 +6,44 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-import javax.swing.text.TableView;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainSceneController implements Initializable {
+    @FXML
+    AnchorPane canvasPane;
+
+    @FXML
+    Canvas canvas;
+
+    GraphicsContext context;
+
+    double xCanvasCenter;
+
+    public double getxCanvasCenter() {
+        return xCanvasCenter;
+    }
+
+    public double getyCanvasCenter() {
+        return yCanvasCenter;
+    }
+
+    double yCanvasCenter;
     ResourceBundle currentLanguageBundle;
     @FXML
     Menu commandsChoice;
@@ -175,6 +198,11 @@ public class MainSceneController implements Initializable {
     @FXML
     javafx.scene.control.TableView<MovieProperties> table;
     private final static ObservableList<MovieProperties> movieList = FXCollections.observableArrayList();
+    private final HashMap<String, MovieProperties> moviePropertiesMap = new HashMap<>();
+
+    public HashMap<String, MovieProperties> getMoviePropertiesMap() {
+        return moviePropertiesMap;
+    }
 
     @FXML
     TableColumn<MovieProperties, Number> id;
@@ -226,6 +254,10 @@ public class MainSceneController implements Initializable {
 
 
     public void TableViewL10N(Locale loc){
+        xCanvasCenter = canvasPane.getPrefWidth()/2;
+        yCanvasCenter = canvasPane.getPrefHeight()/2;
+
+        context = canvas.getGraphicsContext2D();
         ResourceBundle movieBundle = ResourceBundle.getBundle("MovieBundle", loc);
         id.setText(FormattedString(movieBundle.getString("id")));
         movieName.setText(FormattedString(movieBundle.getString("Name")));
@@ -256,13 +288,22 @@ public class MainSceneController implements Initializable {
         }
     }
 
-    public static void setMovieList(LinkedHashMap<String, Movie> movieMap){
+    public TableView<MovieProperties> getTable() {
+        return table;
+    }
+
+    public void setMovieList(LinkedHashMap<String, Movie> movieMap){
         movieList.clear();
         for (Movie movie : movieMap.values()){
-            movieList.add(new MovieProperties(movie));
+            MovieProperties movieProperties = new MovieProperties(movie);
+            movieList.add(movieProperties);
+            moviePropertiesMap.put(movie.getName(), movieProperties);
         }
         System.out.println(movieList);
     }
 
-
+    public void DrawMovie(Ellipse ellipse){
+        canvasPane.getChildren().add(ellipse);
+        Animation.onStartAnimation(ellipse);
+    }
 }
