@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="200.0" maxWidth="250.0" minHeight="200.0" minWidth="250.0" prefHeight="200.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.AuthBlockController">
+<AnchorPane maxHeight="200.0" maxWidth="250.0" minHeight="200.0" minWidth="250.0" prefHeight="200.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.RegFieldController">
    <children>
       <Button fx:id="submitReg" layoutX="93.0" layoutY="155.0" mnemonicParsing="false" onAction="#submitReg" text="Submit" />
       <PasswordField fx:id="passwordField" layoutX="32.0" layoutY="111.0" />

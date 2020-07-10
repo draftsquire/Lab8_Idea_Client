@@ -3,6 +3,7 @@ package com.company;
 import java.io.*;
 import java.net.*;
 import java.util.LinkedHashMap;
+import java.util.ResourceBundle;
 
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
@@ -67,6 +68,7 @@ public class Main extends Application {
     }
     public static void showAuthWindow(boolean isEntering) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("AuthBlock.fxml"));
+        loader.setResources(ResourceBundle.getBundle("AuthBlockBundle"));
         Parent base = loader.load();
         AuthBlockController enterUserController = loader.getController();
         Stage dialogStage = new Stage();
@@ -92,6 +94,7 @@ public class Main extends Application {
     }
     public static void setupMainWindow() throws IOException {
         FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
+
          base = mainLoader.load();
          mainSceneController = mainLoader.getController();
     }

@@ -5,12 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<AnchorPane maxHeight="200.0" maxWidth="250.0" minHeight="200.0" minWidth="250.0" prefHeight="200.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.company.AuthBlockController">
+<AnchorPane maxHeight="200.0" maxWidth="250.0" minHeight="200.0" minWidth="250.0" prefHeight="200.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.AuthBlockController">
    <children>
-      <Button layoutX="71.0" layoutY="108.0" mnemonicParsing="false" text="Авторизация" onAction="#callAuth" />
-      <Button layoutX="72.0" layoutY="149.0" mnemonicParsing="false" text="Регистрация" onAction="#callReg"/>
-      <Text layoutX="83.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выберите" wrappingWidth="84.0" />
+      <Button fx:id="autButton" layoutX="70.0" layoutY="108.0" mnemonicParsing="false" onAction="#callAuth" text="Авторизация" />
+      <Button fx:id="regButton" layoutX="72.0" layoutY="149.0" mnemonicParsing="false" onAction="#callReg" text="Регистрация" />
+      <Text fx:id="invitationText" layoutX="25.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invitation text" textAlignment="CENTER" wrappingWidth="201.0" />
    </children>
 </AnchorPane>

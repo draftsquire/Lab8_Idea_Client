@@ -10,40 +10,50 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class AuthBlockController implements Initializable {
-    boolean isEverythingCorrect = false;
-    static String login;
-    static String password;
+
+
     private Stage dialogStage;
     static boolean isEntering;
+    private ResourceBundle currentLanguageBundle;
+
     @Override
+    //ClientSessionBundle
     public void initialize(URL location, ResourceBundle resources) {
+            currentLanguageBundle=resources;
+            invitationText.setText(FormattedString( currentLanguageBundle.getString("Auth")));
+            autButton.setText(FormattedString( currentLanguageBundle.getString("Authorization")));
+            regButton.setText(FormattedString( currentLanguageBundle.getString("Registration")));
+
+
+
     }
-    @FXML
-    private Button submitButton;
+
 
     @FXML
-    private Button submitReg;
+    private Button autButton;
     @FXML
-    private Button submitAuth;
+    private Button regButton;
+    @FXML
+    private Text invitationText;
 
-    @FXML
-    private PasswordField passwordField;
 
-    @FXML
-    private TextField loginField;
 
-    @FXML
-    private Label labelLogin, labelPassword;
+
     public static void setIsEntering(boolean bool){
         isEntering = bool;
+    }
+    public static boolean getIsEntering(){
+        return isEntering;
     }
 
     @FXML public void callAuth(){
@@ -54,11 +64,15 @@ public class AuthBlockController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AutField.fxml"));
+            loader.setResources(ResourceBundle.getBundle("AuthBlockBundle"));
             Parent base = loader.load();
             Stage authStage = new Stage();
             authStage.setScene(new Scene(base));
             authStage.show();
-        }catch (IOException e){     }
+            authStage.setTitle("Aut");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
     @FXML public void callReg(){
@@ -67,41 +81,15 @@ public class AuthBlockController implements Initializable {
         //Main.callReadingCommands("reg");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("RegField.fxml"));
+            loader.setResources(ResourceBundle.getBundle("AuthBlockBundle"));
             Parent base = loader.load();
             Stage regStage = new Stage();
             regStage.setScene(new Scene(base));
+            regStage.setTitle("Reg");
             regStage.show();
         }catch (IOException e){     }
     }
-    @FXML public void submitAut(){
-        login = loginField.getText();
-        password = passwordField.getText();
-        HashMap<String, String> users = Validator.GetUsers();
-        if (users.containsKey(login)){
-            if (users.get(login).equals(SHA256.getHash(password))){
 
-                //dialogStage.close();
-                try {
-                    Main.setupMainWindow();
-                    Main.callReadingCommands("aut");
-                    Stage stage = (Stage) submitAuth.getScene().getWindow();
-                    stage.close();
-                    if(isEntering) {
-                        Main.showMainWindow();
-                    }
-                } catch (Exception e){
-                    System.out.println("BIG OOF");
-                    e.printStackTrace();
-                }
-
-            }
-            else {
-                passwordField.setStyle("-fx-text-inner-color: red;");
-            }
-        }
-        else {
-            loginField.setStyle("-fx-text-inner-color: red;");
-        }
         /*if (User.checkLoginGUI(login) && !users.containsKey(login)){
             isEverythingCorrect = true;
         }
@@ -116,41 +104,9 @@ public class AuthBlockController implements Initializable {
         if (isEverythingCorrect){
             Main.callReadingCommands("aut");
         }*/
-    }
-
-    @FXML public void submitReg(){
-        login = loginField.getText();
-        password = passwordField.getText();
-        HashMap<String, String> users = Validator.GetUsers();
-        if (User.checkLoginGUI(login) && !users.containsKey(login)){
-            isEverythingCorrect = true;
-        }
-        else{
-            loginField.setStyle("-fx-text-inner-color: red;");
-            isEverythingCorrect = false;
-        }
-        if (!User.checkPasswordGUI(password)) {
-            passwordField.setStyle("-fx-text-inner-color: red;");
-            isEverythingCorrect = false;
-        }
-        if (isEverythingCorrect){
 
 
-            //dialogStage.close();
-            try {
-                Main.setupMainWindow();
-                Main.callReadingCommands("reg");
-                Stage stage = (Stage) submitReg.getScene().getWindow();
-                stage.close();
-                if(isEntering) {
-                    Main.showMainWindow();
-                }
-            } catch (Exception e){
-                System.out.println("BIG OOF");
-                e.printStackTrace();
-            }
-        }
-    }
+
 
 //====================================  не FXML методы
 
@@ -159,10 +115,13 @@ public class AuthBlockController implements Initializable {
         this.dialogStage = dialogStage;
     }
 
-    public static String getLogin(){
-        return login;
+    String FormattedString(String str){
+        try {
+            return new String(str.getBytes("ISO-8859-1"), "UTF-8");
+        }
+        catch (UnsupportedEncodingException e){
+            return "hemlo";
+        }
     }
-    public static String getPassword(){
-        return password;
-    }
+
 }
