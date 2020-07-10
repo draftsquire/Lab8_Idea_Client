@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.SocketAddress;
 import java.sql.ResultSet;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -25,7 +26,9 @@ class UpdatedClientSession {
         this.sessionUser = sessionUser;
         this.authorised = true;
     }
-
+    User getSessionUser(){
+        return this.sessionUser;
+    }
     Query ReadingCommands(String commandIncoming) {
         Query query = null;
         try {
@@ -48,7 +51,7 @@ class UpdatedClientSession {
                     command.equals("remove_greater_key")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    Main.showKeySetWindow();
+                    Main.showKeySetWindow(ResourceBundle.getBundle("KeySetSceneBundle"));
                     query = new Query(command, Validator.currentArgument, sessionUser);
                 } catch (IOException e){
                     e.printStackTrace();
@@ -67,7 +70,7 @@ class UpdatedClientSession {
                     command.equals("remove_greater")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    Main.showMovieSetWindow();
+                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle"));
                     query = new Query(command, Validator.currentMovie.getName(),Validator.currentMovie, sessionUser);
                 } catch (IOException e){
                     query = new Query("get_names");
@@ -75,7 +78,7 @@ class UpdatedClientSession {
             } else if (command.equals("replace_if_lower")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    Main.showMovieSetWindow();
+                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle"));
                     query = new Query(command, Validator.currentMovie.getName(),Validator.currentMovie, sessionUser);
                 } catch (IOException e){
                     query = new Query("get_names");
@@ -83,7 +86,7 @@ class UpdatedClientSession {
             } else if (command.equals("update")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    Main.showMovieSetWindow();
+                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle"));
                     query = new Query(command, Validator.currentMovie.getName(), Validator.currentMovie,sessionUser);
                 } catch (Exception e){
                     e.printStackTrace();
@@ -94,9 +97,11 @@ class UpdatedClientSession {
             else if (command.equals("aut") || command.equals("reg")) {
                 if (command.equals("aut")) {
                     setSessionUser(Validator.AUTHORIZATION());
+
                 }
                 if (command.equals("reg")) {
                     setSessionUser(Validator.REGISTRATION());
+
                 }
                 System.out.println("Current usersList :"+Validator.GetUsers().toString());
                 query = new Query("update_userslist", Validator.GetUsers());

@@ -92,7 +92,7 @@ class Validator implements ActionListener {
             authorizedPassword = scanner.nextLine();
             if(!users.get(authorizedUsername).equals(SHA256.getHash(authorizedPassword)) ) {System.out.println("Неверный пароль! Повторите ввод:");}
         }while (!users.get(authorizedUsername).equals(SHA256.getHash(authorizedPassword)));*/
-        User authorizedUser = new User(AuthBlockController.getLogin(),AuthBlockController.getPassword(), false);
+        User authorizedUser = new User(AutFieldController.getLogin(),AutFieldController.getPassword(), false);
         System.out.println("Вы успешно авторизовались как "+ authorizedUser.username);
         return authorizedUser;
 }
@@ -117,7 +117,7 @@ class Validator implements ActionListener {
                 +"Пароль должен состоять из 5-10 латинских букв и цифр от 0 до 9."+"\n"
                 +"Пароль не должен содержать специальных символов.");
         String newPassword = User.checkPassword(scanner.nextLine());*/
-        User createdUser = new User(AuthBlockController.getLogin(), AuthBlockController.getPassword(),false);
+        User createdUser = new User(RegFieldController.getLogin(), RegFieldController.getPassword(),false);
         users.put(createdUser.username, createdUser.password);
         System.out.println("Вы успешно зарегистрировались как "+ createdUser.username);
         return createdUser;

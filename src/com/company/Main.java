@@ -3,6 +3,7 @@ package com.company;
 import java.io.*;
 import java.net.*;
 import java.util.LinkedHashMap;
+import java.util.ResourceBundle;
 
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
@@ -24,8 +25,8 @@ public class Main extends Application {
     static UpdatedClientSession session = new UpdatedClientSession();
     static Reply currentReply;
     static LinkedHashMap<String, Movie> movieList;
-    static MainSceneController controller;
     static Parent base;
+    static MainSceneController mainSceneController;
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         //ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
         //System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
@@ -35,7 +36,7 @@ public class Main extends Application {
         byte[] b = Converter.convertToBytes(new Query("get_names"));
         DatagramPacket out = new DatagramPacket(b, b.length, a);
         s.send(out);
-        byte[] recieved = new byte[20*8192];
+        byte[] recieved = new byte[8192];
         DatagramPacket in = new DatagramPacket(recieved, recieved.length);
         s.receive(in);
         Reply reply = (Reply) Converter.convertFromBytes(recieved);
@@ -54,8 +55,7 @@ public class Main extends Application {
        // InputStream iconStream = getClass().getResourceAsStream("GX.jpg");
         //Image image = new Image(iconStream);
        // primaryStage.getIcons().add(image);
-
-        showAuthWindow();
+        showAuthWindow(true);
 
 
 
@@ -66,11 +66,13 @@ public class Main extends Application {
         //mediaPlayer.play();
 
     }
-    public static void showAuthWindow() throws IOException {
+    public static void showAuthWindow(boolean isEntering) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("AuthBlock.fxml"));
+        loader.setResources(ResourceBundle.getBundle("AuthBlockBundle"));
         Parent base = loader.load();
         AuthBlockController enterUserController = loader.getController();
         Stage dialogStage = new Stage();
+        AuthBlockController.setIsEntering(isEntering);
         dialogStage.setScene(new Scene(base));
         dialogStage.setMinWidth(350);
         dialogStage.setMinHeight(250);
@@ -79,30 +81,26 @@ public class Main extends Application {
         dialogStage.setTitle("Authorization");
         enterUserController.setDialogStage(dialogStage);
         dialogStage.showAndWait();
-    }
 
-    public static MainSceneController getController() {
-        return controller;
-    }
 
-    public static void setUpMainWindow() throws IOException{
-        FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
-        base = mainLoader.load();
-        controller = mainLoader.getController();
     }
+    public static void showMainWindow() throws IOException{
 
-    public static void showMainWindow() {
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(base));
         mainStage.setTitle("ClientApp");
-        //InputStream iconStream = Main.class.getResourceAsStream("FX.png");
-        //Image image = new Image(iconStream);
-        //mainStage.getIcons().add(image);
         mainStage.showAndWait();
 
     }
+    public static void setupMainWindow(ResourceBundle resourceBundle) throws IOException {
+        FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
+        mainLoader.setResources(resourceBundle);
+         base = mainLoader.load();
+         mainSceneController = mainLoader.getController();
+    }
     public static void callReadingCommands(String commandIncoming){
        try {
+
            Query query = session.ReadingCommands(commandIncoming);
            SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
            DatagramSocket s = new DatagramSocket();
@@ -112,7 +110,7 @@ public class Main extends Application {
            byte[] b = Converter.convertToBytes(query);
            DatagramPacket out = new DatagramPacket(b, b.length, a);
            s.send(out);
-           byte[] recieved = new byte[20*8192];
+           byte[] recieved = new byte[8192];
            DatagramPacket in = new DatagramPacket(recieved, recieved.length);
            s.receive(in);
            Reply reply = (Reply) Converter.convertFromBytes(recieved);
@@ -121,7 +119,8 @@ public class Main extends Application {
            //System.out.println("Reply:\n " + reply.getStringOutput());
            currentReply= reply;
            movieList = reply.getMovies();
-           getController().setMovieList(movieList);
+           MainSceneController.setMovieList(movieList);
+
        } catch (IOException e){
            e.printStackTrace();
        } catch (ClassNotFoundException j){
@@ -129,8 +128,10 @@ public class Main extends Application {
        }
     }
 
-    public static void showMovieSetWindow() throws IOException {
+    public static void showMovieSetWindow(ResourceBundle resourceBundle) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("MovieSetScene.fxml"));
+        loader.setResources(resourceBundle);
+
         Parent base = loader.load();
         MovieSetSceneController movieSetSceneController = loader.getController();
         Stage dialogStage = new Stage();
@@ -138,8 +139,9 @@ public class Main extends Application {
         dialogStage.setTitle("MovieCreation");
         dialogStage.showAndWait();
     }
-    public static void showKeySetWindow() throws IOException {
+    public static void showKeySetWindow(ResourceBundle resourceBundle) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("KeySetScene.fxml"));
+        loader.setResources(resourceBundle);
         Parent base = loader.load();
         KeySetSceneController keySetSceneController = loader.getController();
         Stage dialogStage = new Stage();
