@@ -302,6 +302,7 @@ public class MainSceneController implements Initializable {
         System.out.println(movieList);
     }
 
+    //guygigog
     public void DrawMovie(Ellipse ellipse){
         canvasPane.getChildren().add(ellipse);
         Animation.onStartAnimation(ellipse);
