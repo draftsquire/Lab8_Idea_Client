@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class RegFieldController implements Initializable {
@@ -19,6 +20,7 @@ public class RegFieldController implements Initializable {
     static String password;
     boolean isEverythingCorrect = false;
     private ResourceBundle currentLanguageBundle;
+    Locale loc;
     @FXML
     private PasswordField passwordField;
     @FXML
@@ -54,8 +56,8 @@ public class RegFieldController implements Initializable {
 
             //dialogStage.close();
             try {
-                Main.setupMainWindow(ResourceBundle.getBundle("MainSceneBundle"));
-                Main.callReadingCommands("reg");
+                Main.setupMainWindow(ResourceBundle.getBundle("MainSceneBundle",loc));
+                Main.callReadingCommands("reg",  loc);
                 Stage stage = (Stage) submitReg.getScene().getWindow();
                 stage.close();
                 if(isEntering) {

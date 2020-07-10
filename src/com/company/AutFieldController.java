@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AutFieldController implements Initializable {
@@ -18,9 +19,12 @@ public class AutFieldController implements Initializable {
     static String login;
     static String password;
     private ResourceBundle currentLanguageBundle;
+    private Locale loc ;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentLanguageBundle=resources;
+        loc=resources.getLocale();
         labelLogin.setText( FormattedString( currentLanguageBundle.getString("AuthorizationLogin")) );
         labelPassword.setText(FormattedString( currentLanguageBundle.getString("AuthorizationPassword")));
         submitAut.setText(FormattedString( currentLanguageBundle.getString("Submit")));
@@ -44,8 +48,8 @@ public class AutFieldController implements Initializable {
 
                 //dialogStage.close();
                 try {
-                    Main.setupMainWindow(ResourceBundle.getBundle("MainSceneBundle"));
-                    Main.callReadingCommands("aut");
+                    Main.setupMainWindow(ResourceBundle.getBundle("MainSceneBundle",loc));
+                    Main.callReadingCommands("aut",  loc);
                     Stage stage = (Stage) submitAut.getScene().getWindow();
                     stage.close();
                     if (isEntering) {

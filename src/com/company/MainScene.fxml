@@ -101,10 +101,10 @@
                                           <Menu fx:id="languageChoice" mnemonicParsing="false" text="Set Language">
 
                                                 <items>
-                                                    <MenuItem fx:id="Russian" mnemonicParsing="false" text="Russian" />
-                                                    <MenuItem fx:id="Turkish" mnemonicParsing="false" text="Turkish" />
-                                                    <MenuItem fx:id="French" mnemonicParsing="false" text="French" />
-                                                    <MenuItem fx:id="Spanish" mnemonicParsing="false" text="Spanish (Salvador)" />
+                                                    <MenuItem fx:id="Russian" mnemonicParsing="false" text="Russian" onAction="#setRussian"/>
+                                                    <MenuItem fx:id="Turkish" mnemonicParsing="false" text="Turkish" onAction="#setTurkish"/>
+                                                    <MenuItem fx:id="French" mnemonicParsing="false" text="French" onAction="#setFrench"/>
+                                                    <MenuItem fx:id="Spanish" mnemonicParsing="false" text="Spanish (Salvador)" onAction="#setSpanish" />
                                                 </items>
 
                                           </Menu>

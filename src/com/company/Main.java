@@ -3,6 +3,7 @@ package com.company;
 import java.io.*;
 import java.net.*;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -55,7 +56,7 @@ public class Main extends Application {
        // InputStream iconStream = getClass().getResourceAsStream("GX.jpg");
         //Image image = new Image(iconStream);
        // primaryStage.getIcons().add(image);
-        showAuthWindow(true);
+        showAuthWindow(true, new Locale("ru", "RU"));
 
 
 
@@ -66,9 +67,9 @@ public class Main extends Application {
         //mediaPlayer.play();
 
     }
-    public static void showAuthWindow(boolean isEntering) throws IOException {
+    public static void showAuthWindow(boolean isEntering, Locale loc) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("AuthBlock.fxml"));
-        loader.setResources(ResourceBundle.getBundle("AuthBlockBundle"));
+        loader.setResources(ResourceBundle.getBundle("AuthBlockBundle", loc));
         Parent base = loader.load();
         AuthBlockController enterUserController = loader.getController();
         Stage dialogStage = new Stage();
@@ -103,10 +104,10 @@ public class Main extends Application {
          base = mainLoader.load();
          mainSceneController = mainLoader.getController();
     }
-    public static void callReadingCommands(String commandIncoming){
+    public static void callReadingCommands(String commandIncoming, Locale loc){
        try {
 
-           Query query = session.ReadingCommands(commandIncoming);
+           Query query = session.ReadingCommands(commandIncoming, loc);
            SocketAddress a = new InetSocketAddress(InetAddress.getByName("localhost"), 4445);
            DatagramSocket s = new DatagramSocket();
            if (query.getCommand().equals("exit")) {

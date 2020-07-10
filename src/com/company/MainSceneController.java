@@ -62,19 +62,45 @@ public class MainSceneController implements Initializable {
     @FXML
     MenuItem Spanish;
 
-    @FXML
-    public void changeLanguage(){
+    private Locale loc = new Locale("ru","RU"); ;
 
+    @FXML
+    public void setRussian(){
+        loc = new Locale("ru","RU");
+        setLanguage(loc);
+        TableViewL10N(loc);
     }
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        currentLanguageBundle = resources;
+    @FXML
+    public void setFrench(){
+        loc = new Locale("fr","FR");
+        setLanguage(loc);
+        TableViewL10N(loc);
+    }
+    @FXML
+    public void setSpanish(){
+        loc = new Locale("es","SV");
+        setLanguage(loc);
+        TableViewL10N(loc);
+    }
+    @FXML
+    public void setTurkish(){
+        loc = new Locale("tr","TR");
+        setLanguage(loc);
+        TableViewL10N(loc);
+    }
+    public void setLanguage(Locale loc){
+        currentLanguageBundle = ResourceBundle.getBundle("MainSceneBundle", loc);;
         commandsChoice.setText(FormattedString( currentLanguageBundle.getString("CommandsChoice")));
         languageChoice.setText(FormattedString( currentLanguageBundle.getString("LanguageChoice")));
         Russian.setText(FormattedString( currentLanguageBundle.getString("Russian")));
         Turkish.setText(FormattedString( currentLanguageBundle.getString("Turkish")));
         French.setText(FormattedString( currentLanguageBundle.getString("French")));
         Spanish.setText(FormattedString( currentLanguageBundle.getString("Spanish")));
+    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        currentLanguageBundle = ResourceBundle.getBundle("MainSceneBundle", loc);
+        setLanguage(loc);
         table.setItems(movieList);
         replyLabel.setText("");
         id.setCellValueFactory(cellData -> cellData.getValue().getID());
@@ -104,21 +130,21 @@ public class MainSceneController implements Initializable {
 
     public void callExit(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "exit");
-        Main.callReadingCommands("exit");
+        Main.callReadingCommands("exit",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
 
     }
 
     public void callPrintFieldDescendingOscarsCount(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "print_field_descending_oscars_count");
-        Main.callReadingCommands("print_field_descending_oscars_count");
+        Main.callReadingCommands("print_field_descending_oscars_count",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callAuth(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "auth");
         try {
-            Main.showAuthWindow(false);
+            Main.showAuthWindow(false, loc);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -127,31 +153,31 @@ public class MainSceneController implements Initializable {
 
     public void callInfo(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "info");
-        Main.callReadingCommands("info");
+        Main.callReadingCommands("info",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callShow(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "show");
-        Main.callReadingCommands("show");
+        Main.callReadingCommands("show",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callInsert(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "insert");
-        Main.callReadingCommands("insert");
+        Main.callReadingCommands("insert",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callRemoveKey(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "");
-        Main.callReadingCommands("remove_key");
+        Main.callReadingCommands("remove_key",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callClear(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "clear");
-        Main.callReadingCommands("clear");
+        Main.callReadingCommands("clear",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
@@ -162,31 +188,31 @@ public class MainSceneController implements Initializable {
 
     public void callRemoveGreater(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "remove_greater");
-        Main.callReadingCommands("remove_greater");
+        Main.callReadingCommands("remove_greater",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callReplaceIfLower(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "replace_if_lower");
-        Main.callReadingCommands("replace_if_lower");
+        Main.callReadingCommands("replace_if_lower",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callRemoveGreaterKey(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "remove_greater_key");
-        Main.callReadingCommands("remove_greater_key");
+        Main.callReadingCommands("remove_greater_key",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callCountLessThanOscarsCount(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "count_less_than_oscars_count");
-        Main.callReadingCommands("count_less_than_oscars_count");
+        Main.callReadingCommands("count_less_than_oscars_count",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 
     public void callPrintDescending(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "print_descending");
-        Main.callReadingCommands("print_descending");
+        Main.callReadingCommands("print_descending",  loc);
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
 

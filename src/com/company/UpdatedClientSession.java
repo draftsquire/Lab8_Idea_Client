@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.SocketAddress;
 import java.sql.ResultSet;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.Stack;
@@ -29,7 +30,7 @@ class UpdatedClientSession {
     User getSessionUser(){
         return this.sessionUser;
     }
-    Query ReadingCommands(String commandIncoming) {
+    Query ReadingCommands(String commandIncoming, Locale loc) {
         Query query = null;
         try {
             command = commandIncoming; //reader.read();
@@ -51,7 +52,7 @@ class UpdatedClientSession {
                     command.equals("remove_greater_key")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    Main.showKeySetWindow(ResourceBundle.getBundle("KeySetSceneBundle"));
+                    Main.showKeySetWindow(ResourceBundle.getBundle("KeySetSceneBundle",  loc));
                     query = new Query(command, Validator.currentArgument, sessionUser);
                 } catch (IOException e){
                     e.printStackTrace();
@@ -70,7 +71,7 @@ class UpdatedClientSession {
                     command.equals("remove_greater")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle"));
+                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle",  loc));
                     query = new Query(command, Validator.currentMovie.getName(),Validator.currentMovie, sessionUser);
                 } catch (IOException e){
                     query = new Query("get_names");
@@ -78,7 +79,7 @@ class UpdatedClientSession {
             } else if (command.equals("replace_if_lower")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle"));
+                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle",  loc));
                     query = new Query(command, Validator.currentMovie.getName(),Validator.currentMovie, sessionUser);
                 } catch (IOException e){
                     query = new Query("get_names");
@@ -86,7 +87,7 @@ class UpdatedClientSession {
             } else if (command.equals("update")) {
                 if (!authorised) {throw new NotAuthorizedException();}
                 try {
-                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle"));
+                    Main.showMovieSetWindow(ResourceBundle.getBundle("MovieSetSceneBundle",  loc));
                     query = new Query(command, Validator.currentMovie.getName(), Validator.currentMovie,sessionUser);
                 } catch (Exception e){
                     e.printStackTrace();
@@ -109,7 +110,7 @@ class UpdatedClientSession {
             } else {
                 //UnknownCommand
                 System.out.println("Команда " + command + " не была распознана.");
-                return ReadingCommands(command);
+                return ReadingCommands(command, loc);
             }
         } catch (NotAuthorizedException e){
             e.printStackTrace();
