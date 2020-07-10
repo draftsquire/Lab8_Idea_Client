@@ -1,13 +1,18 @@
 package com.company;
 
 import javafx.beans.property.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class MovieProperties implements Comparable<MovieProperties> {
+        private static HashMap<String, Color> coloredUsers = new HashMap<>();
         //private static final long serialVersionUID = 2L;
         private IntegerProperty id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
         private StringProperty name; //Поле не может быть null, Строка не может быть пустой
@@ -19,6 +24,7 @@ public class MovieProperties implements Comparable<MovieProperties> {
         private ObjectProperty<MpaaRating> mpaaRating; //Поле не может быть null
         private PersonProperties screenwriter;
         private StringProperty owner;
+        private Ellipse ellipse;
 
 
     public PersonProperties getScreenwriter() {
@@ -37,6 +43,42 @@ public class MovieProperties implements Comparable<MovieProperties> {
         this.screenwriter=new PersonProperties(movie.getScreenwriter());
         this.owner=new SimpleStringProperty(movie.getOwner());
 
+        ellipse = new Ellipse(
+                Main.getController().getxCanvasCenter() + coordinates.get_x().get(),
+                Main.getController().getyCanvasCenter() - coordinates.get_y().get(),
+                oscarsCount.get()*5,
+                goldenPalmCount.get()*5
+        );
+        ellipse.setFill(getUserColor(owner.get()));
+        ellipse.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
+            Main.getController().getTable().getSelectionModel().select(this);
+            Animation.startAnimationClicked(ellipse);
+        }));
+        Main.getController().DrawMovie(ellipse);
+//        double xCenter = Main.getController().canvasPane.getWidth()/2;
+//        double yCenter = Main.getController().canvasPane.getWidth()/2;
+//
+//
+//        circle = new MovieCircle(xCenter+coordinates.get_x().get(),
+//                yCenter+coordinates.get_y().get(),
+//                (oscarsCount.get()+goldenPalmCount.get())*10,
+//                getUserColor(owner.get()),
+//                Main.getController().canvas);
+//        circle.draw();
+//        Main.getController().canvasPane.getChildren().add(circle);
+    }
+
+    Color getUserColor(String user){
+        System.out.println("USER: " + user);
+        System.out.println("ColoredUsers: " + coloredUsers);
+        if(coloredUsers.containsKey(user)){
+            return coloredUsers.get(user);
+        }
+        else{
+            Color color = new Color(Math.random(), Math.random(),Math.random(), 1);
+            coloredUsers.put(user, color);
+            return color;
+        }
     }
 
         /** Конструктор для случая, когда id должен генерироваться автоматически
@@ -180,4 +222,7 @@ public class MovieProperties implements Comparable<MovieProperties> {
             return 666;
         }
 
+    public Ellipse getEllipse() {
+        return ellipse;
+    }
 }

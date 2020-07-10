@@ -72,9 +72,10 @@ public class AuthBlockController implements Initializable {
         HashMap<String, String> users = Validator.GetUsers();
         if (users.containsKey(login)){
             if (users.get(login).equals(SHA256.getHash(password))){
-                Main.callReadingCommands("aut");
                 //dialogStage.close();
                 try {
+                    Main.setUpMainWindow();
+                    Main.callReadingCommands("aut");
                     Stage stage = (Stage) submitAuth.getScene().getWindow();
                     stage.close();
                      Main.showMainWindow();

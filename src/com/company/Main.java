@@ -24,6 +24,8 @@ public class Main extends Application {
     static UpdatedClientSession session = new UpdatedClientSession();
     static Reply currentReply;
     static LinkedHashMap<String, Movie> movieList;
+    static MainSceneController controller;
+    static Parent base;
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         //ResourceBundle bundle = ResourceBundle.getBundle("Messages", Locale.US);
         //System.out.println("Message in "+Locale.US +": "+bundle.getString("message"));
@@ -33,7 +35,7 @@ public class Main extends Application {
         byte[] b = Converter.convertToBytes(new Query("get_names"));
         DatagramPacket out = new DatagramPacket(b, b.length, a);
         s.send(out);
-        byte[] recieved = new byte[8192];
+        byte[] recieved = new byte[20*8192];
         DatagramPacket in = new DatagramPacket(recieved, recieved.length);
         s.receive(in);
         Reply reply = (Reply) Converter.convertFromBytes(recieved);
@@ -78,10 +80,18 @@ public class Main extends Application {
         enterUserController.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
-    public static void showMainWindow() throws IOException{
+
+    public static MainSceneController getController() {
+        return controller;
+    }
+
+    public static void setUpMainWindow() throws IOException{
         FXMLLoader mainLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
-        Parent base = mainLoader.load();
-        MainSceneController mainSceneController = mainLoader.getController();
+        base = mainLoader.load();
+        controller = mainLoader.getController();
+    }
+
+    public static void showMainWindow() {
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(base));
         mainStage.setTitle("ClientApp");
@@ -102,7 +112,7 @@ public class Main extends Application {
            byte[] b = Converter.convertToBytes(query);
            DatagramPacket out = new DatagramPacket(b, b.length, a);
            s.send(out);
-           byte[] recieved = new byte[8192];
+           byte[] recieved = new byte[20*8192];
            DatagramPacket in = new DatagramPacket(recieved, recieved.length);
            s.receive(in);
            Reply reply = (Reply) Converter.convertFromBytes(recieved);
@@ -111,7 +121,7 @@ public class Main extends Application {
            //System.out.println("Reply:\n " + reply.getStringOutput());
            currentReply= reply;
            movieList = reply.getMovies();
-           MainSceneController.setMovieList(movieList);
+           getController().setMovieList(movieList);
        } catch (IOException e){
            e.printStackTrace();
        } catch (ClassNotFoundException j){

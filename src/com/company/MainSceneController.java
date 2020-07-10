@@ -6,22 +6,38 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-import javax.swing.text.TableView;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainSceneController {
+    double xCanvasCenter;
+
+    public double getxCanvasCenter() {
+        return xCanvasCenter;
+    }
+
+    public double getyCanvasCenter() {
+        return yCanvasCenter;
+    }
+
+    double yCanvasCenter;
+
+    GraphicsContext context;
+
     @FXML
     ChoiceBox commandsChoice;
     @FXML
@@ -80,6 +96,7 @@ public class MainSceneController {
 
     public void callClear(ActionEvent actionEvent) {
         System.out.println("Command called: "+ "clear");
+
         Main.callReadingCommands("clear");
         replyLabel.setText("\n"+Main.getCurrentReply().getStringOutput());
     }
@@ -127,6 +144,11 @@ public class MainSceneController {
     @FXML
     javafx.scene.control.TableView<MovieProperties> table;
     private final static ObservableList<MovieProperties> movieList = FXCollections.observableArrayList();
+    private final HashMap<String, MovieProperties> moviePropertiesMap = new HashMap<>();
+
+    public HashMap<String, MovieProperties> getMoviePropertiesMap() {
+        return moviePropertiesMap;
+    }
 
     @FXML
     TableColumn<MovieProperties, Number> id;
@@ -168,15 +190,20 @@ public class MainSceneController {
     TableColumn<MovieProperties, String> passportID;
 
     @FXML
-    TableColumn<MovieProperties, Color> eyeColor;
+    TableColumn<MovieProperties, com.company.Color> eyeColor;
 
     @FXML
-    TableColumn<MovieProperties, Color> hairColor;
+    TableColumn<MovieProperties, com.company.Color> hairColor;
 
     @FXML
     TableColumn<MovieProperties, String> owner;
 
     public void initialize(){
+        xCanvasCenter = canvasPane.getPrefWidth()/2;
+        yCanvasCenter = canvasPane.getPrefHeight()/2;
+
+        context = canvas.getGraphicsContext2D();
+
         table.setItems(movieList);
         id.setCellValueFactory(cellData -> cellData.getValue().getID());
         movieName.setCellValueFactory(cellData -> cellData.getValue().getName());
@@ -191,7 +218,6 @@ public class MainSceneController {
         eyeColor.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().eyeColorProperty());
         hairColor.setCellValueFactory(cellData -> cellData.getValue().getScreenwriter().hairColorProperty());
         owner.setCellValueFactory(cellData -> cellData.getValue().ownerProperty());
-
 
         TableViewL10N(new Locale("ru", "RU"));
     }
@@ -218,6 +244,17 @@ public class MainSceneController {
         creationDate.setCellValueFactory(cellData -> cellData.getValue().getCreationDateFormated(pattern));
     }
 
+    //========================================================================Canvas===================================================
+
+    @FXML
+    Canvas canvas;
+
+    @FXML
+    AnchorPane canvasPane;
+
+    @FXML
+    SplitPane rootPane;
+
     String FormattedString(String str){
         try {
             return new String(str.getBytes("ISO-8859-1"), "UTF-8");
@@ -227,11 +264,47 @@ public class MainSceneController {
         }
     }
 
-    public static void setMovieList(LinkedHashMap<String, Movie> movieMap){
+    public void setMovieList(LinkedHashMap<String, Movie> movieMap){
         movieList.clear();
         for (Movie movie : movieMap.values()){
-            movieList.add(new MovieProperties(movie));
+            MovieProperties movieProperties = new MovieProperties(movie);
+            movieList.add(movieProperties);
+            moviePropertiesMap.put(movie.getName(), movieProperties);
         }
-        System.out.println(movieList);
+    }
+
+    public TableView<MovieProperties> getTable() {
+        return table;
+    }
+
+    private void drawMovieEllipse(Movie movie){
+        //ТЕСТИКИ
+
+        context = canvas.getGraphicsContext2D();
+        //Простой овальчик в выбранном месте
+        context.setFill(new Color(Math.random(), Math.random(), Math.random(), 1));
+        context.fillOval(30, 30, 20, 10);
+        //Простой овальчик в центре (почти что) канваса того же цвета
+        //context.fillOval((canvasPane.getPrefWidth()*1)/2, (canvasPane.getPrefHeight()*1)/2,20, 30);
+        //Смещённый от центра овальчик с подготовленным заранее цветом
+        Color color = new Color(Math.random(), Math.random(), Math.random(),1);
+        context.setFill(color);
+        context.fillOval((canvasPane.getPrefWidth()*1)/2 + 69, (canvasPane.getPrefHeight()*1)/2 + 86,20, 30);
+        //Заранее созданный эллипс;
+        Ellipse ellipse = new Ellipse((canvasPane.getPrefWidth()*1)/2 , (canvasPane.getPrefHeight()*1)/2,20, 30);
+        ellipse.setFill(color);
+        //Ивент на клик по эллипсу
+        ellipse.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
+            Animation.startAnimationClicked(ellipse);
+        }));
+        canvasPane.getChildren().add(ellipse);
+        new Thread(() -> Animation.onStartAnimation(ellipse)).start();
+
+        //ТЕСТИКИ
+    }
+
+    public void DrawMovie(Ellipse ellipse){
+        canvasPane.getChildren().add(ellipse);
+        Animation.onStartAnimation(ellipse);
     }
 }

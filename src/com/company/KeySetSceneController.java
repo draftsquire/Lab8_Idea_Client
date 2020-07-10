@@ -21,8 +21,12 @@ public class KeySetSceneController implements Initializable {
 
 
     public void submitKey(){
-
-            Validator.setCurrentArgument(enterKeyField.getText());
+            String key = enterKeyField.getText();
+            try {
+                Animation.OnRemoveAnimation(Main.getController().getMoviePropertiesMap().get(key).getEllipse());
+            }
+            catch (NullPointerException e){return;}
+            Validator.setCurrentArgument(key);
             Stage stage = (Stage) window.getScene().getWindow();
             stage.close();
     }
